@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "Hash": "lpoJxo9KDnzq/fPZ8nQt91japDOnE6BEcHSdlgEtTGs=",
+  "Hash": "LEnOkocwf64Cf7u4Dfd6F7FuDFq0UKsW0mlL0En2wIk=",
   "Source": "HabitPlanForum.Server",
   "BasePath": "_content/HabitPlanForum.Server",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "C:\\github\\HabitPlanForum\\habitplanforum.client\\habitplanforum.client.esproj",
+      "Identity": "C:\\github\\Habbit-Plan-Forum\\habitplanforum.client\\habitplanforum.client.esproj",
       "Version": 2,
       "Source": "habitplanforum.client",
       "GetPublishAssetsTargets": "GetCurrentProjectPublishStaticWebAssetItems",

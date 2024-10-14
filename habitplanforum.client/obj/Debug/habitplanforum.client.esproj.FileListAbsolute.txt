@@ -1,1 +1,2 @@
 C:\github\HabitPlanForum\habitplanforum.client\obj\Debug\habitplanforum.client.esproj.CoreCompileInputs.cache
+C:\github\Habbit-Plan-Forum\habitplanforum.client\obj\Debug\habitplanforum.client.esproj.CoreCompileInputs.cache

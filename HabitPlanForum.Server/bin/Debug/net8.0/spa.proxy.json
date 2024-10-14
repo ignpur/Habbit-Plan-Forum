@@ -3,7 +3,7 @@
 "ServerUrl": "https://localhost:5173",
 "RedirectUrl": "",
 "LaunchCommand": "npm run dev",
-"WorkingDirectory": "C:\\github\\HabitPlanForum\\HabitPlanForum.Server\\..\\habitplanforum.client",
+"WorkingDirectory": "C:\\github\\Habbit-Plan-Forum\\HabitPlanForum.Server\\..\\habitplanforum.client",
 "MaxTimeoutInSeconds": "120",
 "KeepRunning": "false"
 }
