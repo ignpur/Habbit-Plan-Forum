@@ -8,7 +8,9 @@ namespace HabitPlanForum.Server.Data
             : base(options)
         {
         }
-
-        public DbSet<HabitPlan> HabitPlans { get; set; }
+        //private readonly IConfiguration _configuration;
+        public DbSet<Topic> Topics { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<Comment> Comments { get; set; }
     }
 }
