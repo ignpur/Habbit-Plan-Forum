@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HabitPlanForum.Server")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+24d6ac5ea722e5b17eccd3d0d64450a48d12c94a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fad5d62485c0c8c4ac3943423bcced2b4dd7c1bf")]
 [assembly: System.Reflection.AssemblyProductAttribute("HabitPlanForum.Server")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HabitPlanForum.Server")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

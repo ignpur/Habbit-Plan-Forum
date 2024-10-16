@@ -20,16 +20,36 @@ public class TopicsController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Topic>>> GetTopics()
     {
-        return await _context.Topics.ToListAsync();
+        try
+        {
+            var topics = await _context.Topics.ToListAsync();
+            return Ok(topics); // 200 OK
+        }
+        catch
+        {
+            return StatusCode(500, "An internal server error occurred."); // 500 Internal Server Error
+        }
     }
 
     // POST: api/topics
     [HttpPost]
     public async Task<ActionResult<Topic>> CreateTopic(Topic topic)
     {
-        _context.Topics.Add(topic);
-        await _context.SaveChangesAsync();
-        return CreatedAtAction(nameof(GetTopics), new { id = topic.Id }, topic);
+        if (string.IsNullOrEmpty(topic.Title)) // Assuming Topic has a 'Title' field
+        {
+            return UnprocessableEntity("Topic title is required."); // 422 Unprocessable Entity
+        }
+
+        try
+        {
+            _context.Topics.Add(topic);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetTopics), new { id = topic.Id }, topic); // 201 Created
+        }
+        catch
+        {
+            return StatusCode(500, "An internal server error occurred."); // 500 Internal Server Error
+        }
     }
 
     // PUT: api/topics/{id} (Update an existing topic)
@@ -38,7 +58,12 @@ public class TopicsController : ControllerBase
     {
         if (id != updatedTopic.Id)
         {
-            return BadRequest();
+            return BadRequest(); // 400 Bad Request
+        }
+
+        if (string.IsNullOrEmpty(updatedTopic.Title)) // Assuming Topic has a 'Title' field
+        {
+            return UnprocessableEntity("Topic title is required."); // 422 Unprocessable Entity
         }
 
         _context.Entry(updatedTopic).State = EntityState.Modified;
@@ -51,45 +76,58 @@ public class TopicsController : ControllerBase
         {
             if (!_context.Topics.Any(e => e.Id == id))
             {
-                return NotFound();
+                return NotFound(); // 404 Not Found
             }
             else
             {
-                throw;
+                return StatusCode(500, "An internal server error occurred."); // 500 Internal Server Error
             }
         }
 
-        return NoContent();
+        return NoContent(); // 204 No Content
     }
 
     // GET: api/topics/{topicId}/posts
     [HttpGet("{topicId}/posts")]
     public async Task<ActionResult<IEnumerable<Post>>> GetPostsByTopic(int topicId)
     {
-        var posts = await _context.Posts.Where(p => p.TopicId == topicId).ToListAsync();
-
-        if (posts == null || posts.Count == 0)
+        try
         {
-            return NotFound();
+            var posts = await _context.Posts.Where(p => p.TopicId == topicId).ToListAsync();
+
+            if (posts == null || posts.Count == 0)
+            {
+                return NotFound(); // 404 Not Found
+            }
+
+            return Ok(posts); // 200 OK
         }
-
-        return posts;
+        catch
+        {
+            return StatusCode(500, "An internal server error occurred."); // 500 Internal Server Error
+        }
     }
-
 
     // DELETE: api/topics/{id} (Delete a topic by ID)
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteTopic(int id)
     {
-        var topic = await _context.Topics.FindAsync(id);
-        if (topic == null)
+        try
         {
-            return NotFound();
+            var topic = await _context.Topics.FindAsync(id);
+            if (topic == null)
+            {
+                return NotFound(); // 404 Not Found
+            }
+
+            _context.Topics.Remove(topic);
+            await _context.SaveChangesAsync();
+
+            return NoContent(); // 204 No Content
         }
-
-        _context.Topics.Remove(topic);
-        await _context.SaveChangesAsync();
-
-        return NoContent();
+        catch
+        {
+            return StatusCode(500, "An internal server error occurred."); // 500 Internal Server Error
+        }
     }
 }
