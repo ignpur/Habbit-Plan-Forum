@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\github\\Habbit-Plan-Forum\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{2982C03A-CE0F-4D92-8DC2-2E573A4F92C3}|HabitPlanForum.Server\\HabitPlanForum.Server.csproj|c:\\github\\habbit-plan-forum\\habitplanforum.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2982C03A-CE0F-4D92-8DC2-2E573A4F92C3}|HabitPlanForum.Server\\HabitPlanForum.Server.csproj|solutionrelative:habitplanforum.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2982C03A-CE0F-4D92-8DC2-2E573A4F92C3}|HabitPlanForum.Server\\HabitPlanForum.Server.csproj|c:\\github\\habbit-plan-forum\\habitplanforum.server\\controllers\\commentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2982C03A-CE0F-4D92-8DC2-2E573A4F92C3}|HabitPlanForum.Server\\HabitPlanForum.Server.csproj|solutionrelative:habitplanforum.server\\controllers\\commentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -33,10 +37,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{2982C03A-CE0F-4D92-8DC2-2E573A4F92C3}|HabitPlanForum.Server\\HabitPlanForum.Server.csproj|c:\\github\\habbit-plan-forum\\habitplanforum.server\\data\\topic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2982C03A-CE0F-4D92-8DC2-2E573A4F92C3}|HabitPlanForum.Server\\HabitPlanForum.Server.csproj|solutionrelative:habitplanforum.server\\data\\topic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2982C03A-CE0F-4D92-8DC2-2E573A4F92C3}|HabitPlanForum.Server\\HabitPlanForum.Server.csproj|c:\\github\\habbit-plan-forum\\habitplanforum.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2982C03A-CE0F-4D92-8DC2-2E573A4F92C3}|HabitPlanForum.Server\\HabitPlanForum.Server.csproj|solutionrelative:habitplanforum.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -46,24 +46,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "CommentController.cs",
               "DocumentMoniker": "C:\\github\\Habbit-Plan-Forum\\HabitPlanForum.Server\\Controllers\\CommentController.cs",
               "RelativeDocumentMoniker": "HabitPlanForum.Server\\Controllers\\CommentController.cs",
               "ToolTip": "C:\\github\\Habbit-Plan-Forum\\HabitPlanForum.Server\\Controllers\\CommentController.cs",
               "RelativeToolTip": "HabitPlanForum.Server\\Controllers\\CommentController.cs",
-              "ViewState": "AgIAAFIAAAAAAAAAAAAqwF0AAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAFMAAAAAAAAAAAAmwF0AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-13T13:05:56.235Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "PostsController.cs",
               "DocumentMoniker": "C:\\github\\Habbit-Plan-Forum\\HabitPlanForum.Server\\Controllers\\PostsController.cs",
               "RelativeDocumentMoniker": "HabitPlanForum.Server\\Controllers\\PostsController.cs",
@@ -71,12 +71,11 @@
               "RelativeToolTip": "HabitPlanForum.Server\\Controllers\\PostsController.cs",
               "ViewState": "AgIAAI4AAAAAAAAAAAAuwJ8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-13T12:52:57.535Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-13T12:52:57.535Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "TopicsController.cs",
               "DocumentMoniker": "C:\\github\\Habbit-Plan-Forum\\HabitPlanForum.Server\\Controllers\\TopicsController.cs",
               "RelativeDocumentMoniker": "HabitPlanForum.Server\\Controllers\\TopicsController.cs",
@@ -84,12 +83,11 @@
               "RelativeToolTip": "HabitPlanForum.Server\\Controllers\\TopicsController.cs",
               "ViewState": "AgIAAGYAAAAAAAAAAAAqwHwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-13T12:48:56.685Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-13T12:48:56.685Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Comment.cs",
               "DocumentMoniker": "C:\\github\\Habbit-Plan-Forum\\HabitPlanForum.Server\\Data\\Comment.cs",
               "RelativeDocumentMoniker": "HabitPlanForum.Server\\Data\\Comment.cs",
@@ -101,7 +99,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "AplicationDbContext.cs",
               "DocumentMoniker": "C:\\github\\Habbit-Plan-Forum\\HabitPlanForum.Server\\Data\\AplicationDbContext.cs",
               "RelativeDocumentMoniker": "HabitPlanForum.Server\\Data\\AplicationDbContext.cs",
@@ -113,7 +111,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\github\\Habbit-Plan-Forum\\HabitPlanForum.Server\\appsettings.json",
               "RelativeDocumentMoniker": "HabitPlanForum.Server\\appsettings.json",
@@ -125,19 +123,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\github\\Habbit-Plan-Forum\\HabitPlanForum.Server\\Program.cs",
               "RelativeDocumentMoniker": "HabitPlanForum.Server\\Program.cs",
               "ToolTip": "C:\\github\\Habbit-Plan-Forum\\HabitPlanForum.Server\\Program.cs",
               "RelativeToolTip": "HabitPlanForum.Server\\Program.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAAkwCkAAAAXAAAAAAAAAA==",
+              "ViewState": "AgIAACcAAAAAAAAAAAAAAC4AAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-12T15:33:27.623Z"
+              "WhenOpened": "2024-10-12T15:33:27.623Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "Topic.cs",
               "DocumentMoniker": "C:\\github\\Habbit-Plan-Forum\\HabitPlanForum.Server\\Data\\Topic.cs",
               "RelativeDocumentMoniker": "HabitPlanForum.Server\\Data\\Topic.cs",
@@ -149,7 +148,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Post.cs",
               "DocumentMoniker": "C:\\github\\Habbit-Plan-Forum\\HabitPlanForum.Server\\Data\\Post.cs",
               "RelativeDocumentMoniker": "HabitPlanForum.Server\\Data\\Post.cs",
