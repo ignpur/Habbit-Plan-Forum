@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using HabitPlanForum.Server.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 
-namespace HabitPlanForum.Server.Data.Entities
+namespace HabitPlanForum.Server.Data
 {
     public class ApplicationDbContext : DbContext
     {

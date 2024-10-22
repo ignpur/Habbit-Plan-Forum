@@ -1,4 +1,6 @@
-﻿using HabitPlanForum.Server.Data.DTOs;
+﻿using AutoMapper;
+using HabitPlanForum.Server.Data;
+using HabitPlanForum.Server.Data.DTOs;
 using HabitPlanForum.Server.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,10 +10,12 @@ using Microsoft.EntityFrameworkCore;
 public class CommentsController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
+    private readonly IMapper _mapper;
 
-    public CommentsController(ApplicationDbContext context)
+    public CommentsController(ApplicationDbContext context, IMapper mapper)
     {
         _context = context;
+        _mapper = mapper;
     }
 
     // GET: api/topics/{topicId}/posts/{postId}/comments
@@ -22,16 +26,12 @@ public class CommentsController : ControllerBase
         {
             var comments = await _context.Comments
                 .Where(c => c.PostId == postId)
-                .Select(c => new CommentDTO
-                {
-                    Id = c.Id,
-                    Content = c.Content,
-                    CreatedAt = c.CreatedAt,
-                    PostId = c.PostId
-                })
                 .ToListAsync();
 
-            return Ok(comments); // 200 OK
+            // Use AutoMapper to map Comment to CommentDTO
+            var commentDTOs = _mapper.Map<List<CommentDTO>>(comments);
+
+            return Ok(commentDTOs); // 200 OK
         }
         catch
         {
@@ -43,7 +43,7 @@ public class CommentsController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<CommentDTO>> CreateComment(int topicId, int postId, CreateCommentDTO createCommentDTO)
     {
-        // Validate input (e.g., ensure the comment has valid content)
+        // Validate input
         if (string.IsNullOrEmpty(createCommentDTO.Content))
         {
             return UnprocessableEntity("Comment content is required."); // 422 Unprocessable Entity
@@ -56,25 +56,18 @@ public class CommentsController : ControllerBase
             return BadRequest("Cannot add a comment to a non-existent post or topic."); // 400 Bad Request
         }
 
-        var comment = new Comment
-        {
-            Content = createCommentDTO.Content,
-            CreatedAt = DateTime.UtcNow,
-            PostId = postId
-        };
+        // Map the CreateCommentDTO to the Comment entity
+        var comment = _mapper.Map<Comment>(createCommentDTO);
+        comment.PostId = postId;
+        comment.CreatedAt = DateTime.UtcNow;
 
         try
         {
             _context.Comments.Add(comment);
             await _context.SaveChangesAsync();
 
-            var commentDTO = new CommentDTO
-            {
-                Id = comment.Id,
-                Content = comment.Content,
-                CreatedAt = comment.CreatedAt,
-                PostId = comment.PostId
-            };
+            // Map the saved Comment entity to CommentDTO
+            var commentDTO = _mapper.Map<CommentDTO>(comment);
 
             return CreatedAtAction(nameof(GetComments), new { topicId = topicId, postId = postId, id = comment.Id }, commentDTO); // 201 Created
         }
@@ -106,7 +99,8 @@ public class CommentsController : ControllerBase
             return NotFound(); // 404 Not Found
         }
 
-        comment.Content = updateCommentDTO.Content;
+        // Use AutoMapper to map the changes from UpdateCommentDTO to the existing Comment entity
+        _mapper.Map(updateCommentDTO, comment);
 
         try
         {

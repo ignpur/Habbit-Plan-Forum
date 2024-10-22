@@ -1,17 +1,23 @@
-﻿using HabitPlanForum.Server.Data.DTOs;
+﻿using AutoMapper;
+using HabitPlanForum.Server.Data;
+using HabitPlanForum.Server.Data.DTOs;
 using HabitPlanForum.Server.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 [Route("api/topics/{topicId}/[controller]")]
 [ApiController]
 public class PostsController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
+    private readonly IMapper _mapper;
 
-    public PostsController(ApplicationDbContext context)
+    public PostsController(ApplicationDbContext context, IMapper mapper)
     {
         _context = context;
+        _mapper = mapper;
     }
 
     // GET: api/topics/{topicId}/posts
@@ -22,18 +28,12 @@ public class PostsController : ControllerBase
         {
             var posts = await _context.Posts
                 .Where(p => p.TopicId == topicId)
-                .Select(p => new PostDTO
-                {
-                    Id = p.Id,
-                    Title = p.Title,
-                    Content = p.Content,
-                    CreatedAt = p.CreatedAt,
-                    Likes = p.Likes,
-                    TopicId = p.TopicId
-                })
                 .ToListAsync();
 
-            return Ok(posts); // 200 OK
+            // Use AutoMapper to map Post to PostDTO
+            var postsDTO = _mapper.Map<List<PostDTO>>(posts);
+
+            return Ok(postsDTO); // 200 OK
         }
         catch
         {
@@ -49,15 +49,6 @@ public class PostsController : ControllerBase
         {
             var post = await _context.Posts
                 .Where(p => p.Id == id && p.TopicId == topicId)
-                .Select(p => new PostDTO
-                {
-                    Id = p.Id,
-                    Title = p.Title,
-                    Content = p.Content,
-                    CreatedAt = p.CreatedAt,
-                    Likes = p.Likes,
-                    TopicId = p.TopicId
-                })
                 .FirstOrDefaultAsync();
 
             if (post == null)
@@ -65,7 +56,10 @@ public class PostsController : ControllerBase
                 return NotFound(); // 404 Not Found
             }
 
-            return Ok(post); // 200 OK
+            // Map Post to PostDTO using AutoMapper
+            var postDTO = _mapper.Map<PostDTO>(post);
+
+            return Ok(postDTO); // 200 OK
         }
         catch
         {
@@ -89,28 +83,18 @@ public class PostsController : ControllerBase
             return BadRequest("Cannot add a post to a non-existent topic."); // 400 Bad Request
         }
 
-        var post = new Post
-        {
-            Title = createPostDTO.Title,
-            Content = createPostDTO.Content,
-            CreatedAt = DateTime.UtcNow,
-            TopicId = topicId
-        };
+        // Use AutoMapper to map CreatePostDTO to Post entity
+        var post = _mapper.Map<Post>(createPostDTO);
+        post.TopicId = topicId;
+        post.CreatedAt = DateTime.UtcNow;
 
         try
         {
             _context.Posts.Add(post);
             await _context.SaveChangesAsync();
 
-            var postDTO = new PostDTO
-            {
-                Id = post.Id,
-                Title = post.Title,
-                Content = post.Content,
-                CreatedAt = post.CreatedAt,
-                Likes = post.Likes,
-                TopicId = post.TopicId
-            };
+            // Map the newly created Post entity to PostDTO
+            var postDTO = _mapper.Map<PostDTO>(post);
 
             return CreatedAtAction(nameof(GetPost), new { topicId = topicId, id = post.Id }, postDTO); // 201 Created
         }
@@ -160,7 +144,8 @@ public class PostsController : ControllerBase
             return NotFound(); // 404 Not Found
         }
 
-        post.Content = updatePostDTO.Content;
+        // Map the changes from UpdatePostDTO to the existing post entity using AutoMapper
+        _mapper.Map(updatePostDTO, post);
 
         try
         {

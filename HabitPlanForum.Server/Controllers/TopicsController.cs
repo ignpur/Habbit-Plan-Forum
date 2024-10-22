@@ -1,10 +1,10 @@
-﻿using HabitPlanForum.Server.Data;
+﻿using AutoMapper;
+using HabitPlanForum.Server.Data;
 using HabitPlanForum.Server.Data.DTOs;
 using HabitPlanForum.Server.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 [Route("api/[controller]")]
@@ -12,10 +12,12 @@ using System.Threading.Tasks;
 public class TopicsController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
+    private readonly IMapper _mapper;
 
-    public TopicsController(ApplicationDbContext context)
+    public TopicsController(ApplicationDbContext context, IMapper mapper)
     {
         _context = context;
+        _mapper = mapper;
     }
 
     // GET: api/topics
@@ -24,17 +26,9 @@ public class TopicsController : ControllerBase
     {
         try
         {
-            var topics = await _context.Topics
-                .Select(t => new TopicDTO
-                {
-                    Id = t.Id,
-                    Title = t.Title,
-                    Description = t.Description,
-                    CreatedAt = t.CreatedAt
-                })
-                .ToListAsync();
-
-            return Ok(topics); // 200 OK
+            var topics = await _context.Topics.ToListAsync();
+            var topicsDTO = _mapper.Map<List<TopicDTO>>(topics);  // AutoMapper
+            return Ok(topicsDTO); // 200 OK
         }
         catch
         {
@@ -44,38 +38,28 @@ public class TopicsController : ControllerBase
 
     // POST: api/topics
     [HttpPost]
+    [Produces("application/json")] // Define the content type Swagger will display
     public async Task<ActionResult<TopicDTO>> CreateTopic(CreateTopicDTO createTopicDTO)
     {
         if (string.IsNullOrEmpty(createTopicDTO.Title))
         {
-            return UnprocessableEntity("Topic title is required."); // 422 Unprocessable Entity
+            return UnprocessableEntity("Topic title is required.");
         }
 
-        var topic = new Topic
-        {
-            Title = createTopicDTO.Title,
-            Description = createTopicDTO.Description,
-            CreatedAt = DateTime.UtcNow
-        };
+        var topic = _mapper.Map<Topic>(createTopicDTO);
+        topic.CreatedAt = DateTime.UtcNow;
 
         try
         {
             _context.Topics.Add(topic);
             await _context.SaveChangesAsync();
 
-            var topicDTO = new TopicDTO
-            {
-                Id = topic.Id,
-                Title = topic.Title,
-                Description = topic.Description,
-                CreatedAt = topic.CreatedAt
-            };
-
-            return CreatedAtAction(nameof(GetTopics), new { id = topic.Id }, topicDTO); // 201 Created
+            var topicDTO = _mapper.Map<TopicDTO>(topic);
+            return CreatedAtAction(nameof(GetTopics), new { id = topic.Id }, topicDTO);
         }
         catch
         {
-            return StatusCode(500, "An internal server error occurred."); // 500 Internal Server Error
+            return StatusCode(500, "An internal server error occurred.");
         }
     }
 
@@ -89,15 +73,15 @@ public class TopicsController : ControllerBase
             return NotFound(); // 404 Not Found
         }
 
-        // Update only the Description field
-        topic.Description = updateTopicDTO.Description;
+        // Map updated fields from DTO to existing entity using AutoMapper
+        _mapper.Map(updateTopicDTO, topic);
 
         try
         {
             await _context.SaveChangesAsync();
             return NoContent(); // 204 No Content
         }
-        catch (DbUpdateConcurrencyException)
+        catch
         {
             return StatusCode(500, "An internal server error occurred."); // 500 Internal Server Error
         }
@@ -111,13 +95,6 @@ public class TopicsController : ControllerBase
         {
             var posts = await _context.Posts
                 .Where(p => p.TopicId == topicId)
-                .Select(p => new PostDTO
-                {
-                    Id = p.Id,
-                    Title = p.Title,
-                    Content = p.Content,
-                    CreatedAt = p.CreatedAt,
-                })
                 .ToListAsync();
 
             if (posts == null || posts.Count == 0)
@@ -125,7 +102,9 @@ public class TopicsController : ControllerBase
                 return NotFound(); // 404 Not Found
             }
 
-            return Ok(posts); // 200 OK
+            // Map Post entities to PostDTO using AutoMapper
+            var postDTOs = _mapper.Map<List<PostDTO>>(posts);
+            return Ok(postDTOs); // 200 OK
         }
         catch
         {
@@ -156,4 +135,3 @@ public class TopicsController : ControllerBase
         }
     }
 }
-

@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
-using HabitPlanForum.Server.Data.Entities;
+using HabitPlanForum.Server.Data;
+using AutoMapper;
+using HabitPlanForum.Server.Data.Mappings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +29,7 @@ builder.Services.AddCors(options =>
 // Add Swagger/OpenAPI services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(typeof(MappingProfile)); // AutoMapper registration
 
 var app = builder.Build();
 
@@ -41,7 +44,6 @@ if (app.Environment.IsDevelopment())
 
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1 JSON");
         c.SwaggerEndpoint("/swagger/v1/swagger.yaml", "My API V1 YAML");
     });
 }
