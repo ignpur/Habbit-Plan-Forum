@@ -1,0 +1,354 @@
+{
+	"info": {
+		"_postman_id": "a4e0ca02-a753-4cbd-8ec1-4ec8f4de4bc0",
+		"name": "Habbit Plan Forum API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38775050"
+	},
+	"item": [
+		{
+			"name": "Topics",
+			"item": [
+				{
+					"name": "Create a New Topic",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 1,\r\n  \"title\": \"First created topic\",\r\n  \"description\": \"Am I the first?\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/Topics",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Topics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET All Topics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/Topics",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Topics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Posts by Topic",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/Topics/1/posts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Topics",
+								"1",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a Topic by ID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/Topics/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Topics",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Topic",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/Topics/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Topics",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "GET All Posts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/Posts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Single Post by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/Posts/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a New Post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Best Strategies for Habit Formation\",\r\n  \"content\": \"Start with small steps and build gradually.\",\r\n  \"topicId\": 1\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/Posts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Like a Post",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/Posts/1/like",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Posts",
+								"1",
+								"like"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete  Post By ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/Posts/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Post by ID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"title\": \"Introduction to Habits\",\r\n    \"content\": \"This is the content of the post, explaining the basics of forming good habits.\",\r\n    \"topicId\": 1,\r\n    \"createdAt\": \"2024-10-17T12:34:56Z\",\r\n    \"likes\": 0\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/Posts/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comments",
+			"item": [
+				{
+					"name": "GET All Comments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/Comments",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Create a new Comment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"content\": \"Great strategy! I'll try it.\",\r\n  \"postId\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/Comments",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a Comment",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 1,\r\n  \"content\": \"Updated comment content\",\r\n  \"postId\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/Comments/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Comments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a comment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/Comments/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Comments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

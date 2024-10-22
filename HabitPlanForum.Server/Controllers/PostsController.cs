@@ -1,11 +1,9 @@
-﻿using HabitPlanForum.Server.Data;
+﻿using HabitPlanForum.Server.Data.DTOs;
+using HabitPlanForum.Server.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-[Route("api/[controller]")]
+[Route("api/topics/{topicId}/[controller]")]
 [ApiController]
 public class PostsController : ControllerBase
 {
@@ -16,13 +14,25 @@ public class PostsController : ControllerBase
         _context = context;
     }
 
-    // GET: api/posts
+    // GET: api/topics/{topicId}/posts
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Post>>> GetPosts()
+    public async Task<ActionResult<IEnumerable<PostDTO>>> GetPosts(int topicId)
     {
         try
         {
-            var posts = await _context.Posts.ToListAsync();
+            var posts = await _context.Posts
+                .Where(p => p.TopicId == topicId)
+                .Select(p => new PostDTO
+                {
+                    Id = p.Id,
+                    Title = p.Title,
+                    Content = p.Content,
+                    CreatedAt = p.CreatedAt,
+                    Likes = p.Likes,
+                    TopicId = p.TopicId
+                })
+                .ToListAsync();
+
             return Ok(posts); // 200 OK
         }
         catch
@@ -31,13 +41,24 @@ public class PostsController : ControllerBase
         }
     }
 
-    // GET: api/posts/{id}
+    // GET: api/topics/{topicId}/posts/{id}
     [HttpGet("{id}")]
-    public async Task<ActionResult<Post>> GetPost(int id)
+    public async Task<ActionResult<PostDTO>> GetPost(int topicId, int id)
     {
         try
         {
-            var post = await _context.Posts.FindAsync(id);
+            var post = await _context.Posts
+                .Where(p => p.Id == id && p.TopicId == topicId)
+                .Select(p => new PostDTO
+                {
+                    Id = p.Id,
+                    Title = p.Title,
+                    Content = p.Content,
+                    CreatedAt = p.CreatedAt,
+                    Likes = p.Likes,
+                    TopicId = p.TopicId
+                })
+                .FirstOrDefaultAsync();
 
             if (post == null)
             {
@@ -52,21 +73,46 @@ public class PostsController : ControllerBase
         }
     }
 
-    // POST: api/posts
+    // POST: api/topics/{topicId}/posts
     [HttpPost]
-    public async Task<ActionResult<Post>> CreatePost(Post post)
+    public async Task<ActionResult<PostDTO>> CreatePost(int topicId, CreatePostDTO createPostDTO)
     {
-        // Validate the input (e.g., ensure the post has valid content)
-        if (string.IsNullOrEmpty(post.Content))
+        if (string.IsNullOrEmpty(createPostDTO.Content))
         {
             return UnprocessableEntity("Post content is required."); // 422 Unprocessable Entity
         }
+
+        // Check if the topic exists before creating the post
+        var topicExists = await _context.Topics.AnyAsync(t => t.Id == topicId);
+        if (!topicExists)
+        {
+            return BadRequest("Cannot add a post to a non-existent topic."); // 400 Bad Request
+        }
+
+        var post = new Post
+        {
+            Title = createPostDTO.Title,
+            Content = createPostDTO.Content,
+            CreatedAt = DateTime.UtcNow,
+            TopicId = topicId
+        };
 
         try
         {
             _context.Posts.Add(post);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetPost), new { id = post.Id }, post); // 201 Created
+
+            var postDTO = new PostDTO
+            {
+                Id = post.Id,
+                Title = post.Title,
+                Content = post.Content,
+                CreatedAt = post.CreatedAt,
+                Likes = post.Likes,
+                TopicId = post.TopicId
+            };
+
+            return CreatedAtAction(nameof(GetPost), new { topicId = topicId, id = post.Id }, postDTO); // 201 Created
         }
         catch
         {
@@ -74,13 +120,13 @@ public class PostsController : ControllerBase
         }
     }
 
-    // PUT: api/posts/{id}/like
+    // PUT: api/topics/{topicId}/posts/{id}/like
     [HttpPut("{id}/like")]
-    public async Task<IActionResult> LikePost(int id)
+    public async Task<IActionResult> LikePost(int topicId, int id)
     {
         try
         {
-            var post = await _context.Posts.FindAsync(id);
+            var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == id && p.TopicId == topicId);
             if (post == null)
             {
                 return NotFound(); // 404 Not Found
@@ -99,21 +145,22 @@ public class PostsController : ControllerBase
         }
     }
 
-    // PUT: api/posts/{id}
+    // PUT: api/topics/{topicId}/posts/{id}
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdatePost(int id, Post updatedPost)
+    public async Task<IActionResult> UpdatePost(int topicId, int id, UpdatePostDTO updatePostDTO)
     {
-        if (id != updatedPost.Id)
-        {
-            return BadRequest(); // 400 Bad Request
-        }
-
-        if (string.IsNullOrEmpty(updatedPost.Content)) // Validate content
+        if (string.IsNullOrEmpty(updatePostDTO.Content)) // Validate content
         {
             return UnprocessableEntity("Post content is required."); // 422 Unprocessable Entity
         }
 
-        _context.Entry(updatedPost).State = EntityState.Modified;
+        var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == id && p.TopicId == topicId);
+        if (post == null)
+        {
+            return NotFound(); // 404 Not Found
+        }
+
+        post.Content = updatePostDTO.Content;
 
         try
         {
@@ -121,26 +168,19 @@ public class PostsController : ControllerBase
         }
         catch (DbUpdateConcurrencyException)
         {
-            if (!_context.Posts.Any(e => e.Id == id))
-            {
-                return NotFound(); // 404 Not Found
-            }
-            else
-            {
-                return StatusCode(500, "An internal server error occurred."); // 500 Internal Server Error
-            }
+            return StatusCode(500, "An internal server error occurred."); // 500 Internal Server Error
         }
 
         return NoContent(); // 204 No Content
     }
 
-    // DELETE: api/posts/{id}
+    // DELETE: api/topics/{topicId}/posts/{id}
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeletePost(int id)
+    public async Task<IActionResult> DeletePost(int topicId, int id)
     {
         try
         {
-            var post = await _context.Posts.FindAsync(id);
+            var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == id && p.TopicId == topicId);
             if (post == null)
             {
                 return NotFound(); // 404 Not Found

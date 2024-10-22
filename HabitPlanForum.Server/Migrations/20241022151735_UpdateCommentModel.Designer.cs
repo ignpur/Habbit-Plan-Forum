@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HabitPlanForum.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241015085330_AddLikesToPosts")]
-    partial class AddLikesToPosts
+    [Migration("20241022151735_UpdateCommentModel")]
+    partial class UpdateCommentModel
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace HabitPlanForum.Server.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("HabitPlanForum.Server.Data.Comment", b =>
+            modelBuilder.Entity("HabitPlanForum.Server.Data.Entities.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -45,10 +45,12 @@ namespace HabitPlanForum.Server.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PostId");
+
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("HabitPlanForum.Server.Data.Post", b =>
+            modelBuilder.Entity("HabitPlanForum.Server.Data.Entities.Post", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -56,7 +58,7 @@ namespace HabitPlanForum.Server.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Body")
+                    b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -75,10 +77,12 @@ namespace HabitPlanForum.Server.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("TopicId");
+
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("HabitPlanForum.Server.Data.Topic", b =>
+            modelBuilder.Entity("HabitPlanForum.Server.Data.Entities.Topic", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -100,6 +104,38 @@ namespace HabitPlanForum.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Topics");
+                });
+
+            modelBuilder.Entity("HabitPlanForum.Server.Data.Entities.Comment", b =>
+                {
+                    b.HasOne("HabitPlanForum.Server.Data.Entities.Post", "Post")
+                        .WithMany("Comments")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+                });
+
+            modelBuilder.Entity("HabitPlanForum.Server.Data.Entities.Post", b =>
+                {
+                    b.HasOne("HabitPlanForum.Server.Data.Entities.Topic", "Topic")
+                        .WithMany("Posts")
+                        .HasForeignKey("TopicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Topic");
+                });
+
+            modelBuilder.Entity("HabitPlanForum.Server.Data.Entities.Post", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("HabitPlanForum.Server.Data.Entities.Topic", b =>
+                {
+                    b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618
         }

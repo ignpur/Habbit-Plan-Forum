@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HabitPlanForum.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241015085330_AddLikesToPosts")]
-    partial class AddLikesToPosts
+    [Migration("20241017072645_AddContentToPost")]
+    partial class AddContentToPost
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,7 +56,7 @@ namespace HabitPlanForum.Server.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Body")
+                    b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("longtext");
 

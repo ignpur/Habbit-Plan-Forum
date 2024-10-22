@@ -1,11 +1,11 @@
-﻿namespace HabitPlanForum.Server.Data
+﻿namespace HabitPlanForum.Server.Data.DTOs
 {
-    public class Comment
+    public class CommentDTO
     {
         public int Id { get; set; }
         public string Content { get; set; }
         public DateTime CreatedAt { get; set; }
-
         public int PostId { get; set; }
+
     }
 }

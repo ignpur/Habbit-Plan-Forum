@@ -1,4 +1,4 @@
-﻿namespace HabitPlanForum.Server.Data
+﻿namespace HabitPlanForum.Server.Data.Entities
 {
     public class Topic
     {
@@ -6,5 +6,6 @@
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime CreatedAt { get; set; }
+        public ICollection<Post> Posts { get; set; }
     }
 }
