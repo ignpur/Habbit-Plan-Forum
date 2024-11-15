@@ -5,7 +5,7 @@ using HabitPlanForum.Server.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-[Route("api/topics/{topicId}/posts/{postId}/[controller]")]
+[Route("api/Topics/{topicId}/Posts/{postId}/[controller]")]
 [ApiController]
 public class CommentsController : ControllerBase
 {
@@ -69,7 +69,7 @@ public class CommentsController : ControllerBase
             // Map the saved Comment entity to CommentDTO
             var commentDTO = _mapper.Map<CommentDTO>(comment);
 
-            return CreatedAtAction(nameof(GetComments), new { topicId = topicId, postId = postId, id = comment.Id }, commentDTO); // 201 Created
+            return CreatedAtAction(nameof(GetComments), new { topicId = topicId, postId = postId, commentId = comment.Id }, commentDTO); // 201 Created
         }
         catch
         {
@@ -77,9 +77,9 @@ public class CommentsController : ControllerBase
         }
     }
 
-    // PUT: api/topics/{topicId}/posts/{postId}/comments/{id}
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateComment(int topicId, int postId, int id, UpdateCommentDTO updateCommentDTO)
+    // PUT: api/topics/{topicId}/posts/{postId}/comments/{commentId}
+    [HttpPut("{commentId}")]
+    public async Task<IActionResult> UpdateComment(int topicId, int postId, int commentId, UpdateCommentDTO updateCommentDTO)
     {
         if (string.IsNullOrEmpty(updateCommentDTO.Content))
         {
@@ -93,7 +93,7 @@ public class CommentsController : ControllerBase
             return BadRequest("Cannot update a comment under a non-existent post or topic."); // 400 Bad Request
         }
 
-        var comment = await _context.Comments.FirstOrDefaultAsync(c => c.Id == id && c.PostId == postId);
+        var comment = await _context.Comments.FirstOrDefaultAsync(c => c.Id == commentId && c.PostId == postId);
         if (comment == null)
         {
             return NotFound(); // 404 Not Found
@@ -105,7 +105,7 @@ public class CommentsController : ControllerBase
         try
         {
             await _context.SaveChangesAsync();
-            return NoContent(); // 204 No Content
+            return Ok(updateCommentDTO); // 204 No Content
         }
         catch (DbUpdateConcurrencyException)
         {
@@ -113,13 +113,13 @@ public class CommentsController : ControllerBase
         }
     }
 
-    // DELETE: api/topics/{topicId}/posts/{postId}/comments/{id}
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteComment(int topicId, int postId, int id)
+    // DELETE: api/topics/{topicId}/posts/{postId}/comments/{commentId}
+    [HttpDelete("{commentId}")]
+    public async Task<IActionResult> DeleteComment(int topicId, int postId, int commentId)
     {
         try
         {
-            var comment = await _context.Comments.FirstOrDefaultAsync(c => c.Id == id && c.PostId == postId);
+            var comment = await _context.Comments.FirstOrDefaultAsync(c => c.Id == commentId && c.PostId == postId);
             if (comment == null)
             {
                 return NotFound(); // 404 Not Found

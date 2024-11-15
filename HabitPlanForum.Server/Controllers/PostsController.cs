@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-[Route("api/topics/{topicId}/[controller]")]
+[Route("api/Topics/{topicId}/[controller]")]
 [ApiController]
 public class PostsController : ControllerBase
 {
@@ -30,25 +30,32 @@ public class PostsController : ControllerBase
                 .Where(p => p.TopicId == topicId)
                 .ToListAsync();
 
+            // Check if posts exist for the given topicId
+            if (posts == null || !posts.Any())
+            {
+                return NotFound($"No posts found for TopicId: {topicId}"); // 404 Not Found
+            }
+
             // Use AutoMapper to map Post to PostDTO
             var postsDTO = _mapper.Map<List<PostDTO>>(posts);
 
             return Ok(postsDTO); // 200 OK
         }
-        catch
+        catch (Exception ex)
         {
+            Console.WriteLine($"Error occurred: {ex.Message}");
             return StatusCode(500, "An internal server error occurred."); // 500 Internal Server Error
         }
     }
 
-    // GET: api/topics/{topicId}/posts/{id}
-    [HttpGet("{id}")]
-    public async Task<ActionResult<PostDTO>> GetPost(int topicId, int id)
+    // GET: api/topics/{topicId}/posts/{postId}
+    [HttpGet("{postId}")]
+    public async Task<ActionResult<PostDTO>> GetPost(int topicId, int postId)
     {
         try
         {
             var post = await _context.Posts
-                .Where(p => p.Id == id && p.TopicId == topicId)
+                .Where(p => p.Id == postId && p.TopicId == topicId)
                 .FirstOrDefaultAsync();
 
             if (post == null)
@@ -96,7 +103,7 @@ public class PostsController : ControllerBase
             // Map the newly created Post entity to PostDTO
             var postDTO = _mapper.Map<PostDTO>(post);
 
-            return CreatedAtAction(nameof(GetPost), new { topicId = topicId, id = post.Id }, postDTO); // 201 Created
+            return CreatedAtAction(nameof(GetPost), new { topicId = topicId, postId = post.Id }, postDTO); // 201 Created
         }
         catch
         {
@@ -104,13 +111,13 @@ public class PostsController : ControllerBase
         }
     }
 
-    // PUT: api/topics/{topicId}/posts/{id}/like
-    [HttpPut("{id}/like")]
-    public async Task<IActionResult> LikePost(int topicId, int id)
+    // PUT: api/topics/{topicId}/posts/{postId}/like
+    [HttpPut("{postId}/like")]
+    public async Task<IActionResult> LikePost(int topicId, int postId)
     {
         try
         {
-            var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == id && p.TopicId == topicId);
+            var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == postId && p.TopicId == topicId);
             if (post == null)
             {
                 return NotFound(); // 404 Not Found
@@ -121,7 +128,7 @@ public class PostsController : ControllerBase
 
             await _context.SaveChangesAsync();
 
-            return NoContent(); // 204 No Content
+            return Ok(); // 204 No Content
         }
         catch
         {
@@ -129,16 +136,16 @@ public class PostsController : ControllerBase
         }
     }
 
-    // PUT: api/topics/{topicId}/posts/{id}
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdatePost(int topicId, int id, UpdatePostDTO updatePostDTO)
+    // PUT: api/topics/{topicId}/posts/{postId}
+    [HttpPut("{postId}")]
+    public async Task<IActionResult> UpdatePost(int topicId, int postId, UpdatePostDTO updatePostDTO)
     {
         if (string.IsNullOrEmpty(updatePostDTO.Content)) // Validate content
         {
             return UnprocessableEntity("Post content is required."); // 422 Unprocessable Entity
         }
 
-        var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == id && p.TopicId == topicId);
+        var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == postId && p.TopicId == topicId);
         if (post == null)
         {
             return NotFound(); // 404 Not Found
@@ -159,13 +166,13 @@ public class PostsController : ControllerBase
         return NoContent(); // 204 No Content
     }
 
-    // DELETE: api/topics/{topicId}/posts/{id}
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeletePost(int topicId, int id)
+    // DELETE: api/topics/{topicId}/posts/{postId}
+    [HttpDelete("{postId}")]
+    public async Task<IActionResult> DeletePost(int topicId, int postId)
     {
         try
         {
-            var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == id && p.TopicId == topicId);
+            var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == postId && p.TopicId == topicId);
             if (post == null)
             {
                 return NotFound(); // 404 Not Found

@@ -55,7 +55,7 @@ public class TopicsController : ControllerBase
             await _context.SaveChangesAsync();
 
             var topicDTO = _mapper.Map<TopicDTO>(topic);
-            return CreatedAtAction(nameof(GetTopics), new { id = topic.Id }, topicDTO);
+            return CreatedAtAction(nameof(GetTopics), new { topicId = topic.Id }, topicDTO); // Changed `id` to `topicId`
         }
         catch
         {
@@ -63,11 +63,11 @@ public class TopicsController : ControllerBase
         }
     }
 
-    // PUT: api/topics/{id}
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateTopic(int id, UpdateTopicDTO updateTopicDTO)
+    // PUT: api/topics/{topicId}
+    [HttpPut("{topicId}")]
+    public async Task<IActionResult> UpdateTopic(int topicId, UpdateTopicDTO updateTopicDTO)
     {
-        var topic = await _context.Topics.FindAsync(id);
+        var topic = await _context.Topics.FindAsync(topicId);
         if (topic == null)
         {
             return NotFound(); // 404 Not Found
@@ -87,8 +87,8 @@ public class TopicsController : ControllerBase
         }
     }
 
-    // GET: api/topics/{topicId}/posts
-    [HttpGet("{topicId}/posts")]
+    // GET: api/Topics/{topicId}/Posts
+    [HttpGet("{topicId}/related-posts")]
     public async Task<ActionResult<IEnumerable<PostDTO>>> GetPostsByTopic(int topicId)
     {
         try
@@ -102,7 +102,6 @@ public class TopicsController : ControllerBase
                 return NotFound(); // 404 Not Found
             }
 
-            // Map Post entities to PostDTO using AutoMapper
             var postDTOs = _mapper.Map<List<PostDTO>>(posts);
             return Ok(postDTOs); // 200 OK
         }
@@ -112,13 +111,13 @@ public class TopicsController : ControllerBase
         }
     }
 
-    // DELETE: api/topics/{id}
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteTopic(int id)
+    // DELETE: api/topics/{topicId}
+    [HttpDelete("{topicId}")]
+    public async Task<IActionResult> DeleteTopic(int topicId)
     {
         try
         {
-            var topic = await _context.Topics.FindAsync(id);
+            var topic = await _context.Topics.FindAsync(topicId);
             if (topic == null)
             {
                 return NotFound(); // 404 Not Found

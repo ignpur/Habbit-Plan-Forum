@@ -44,7 +44,7 @@ if (app.Environment.IsDevelopment())
 
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.yaml", "My API V1 YAML");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1 JSON");
     });
 }
 
