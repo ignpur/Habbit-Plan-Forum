@@ -1,6 +1,7 @@
 ﻿using HabitPlanForum.Server.Auth.Model;
 using Microsoft.Extensions.Hosting;
 
+
 namespace HabitPlanForum.Server.Data.Entities
 {
     public class Comment

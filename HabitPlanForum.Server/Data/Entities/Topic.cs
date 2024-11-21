@@ -11,7 +11,7 @@ namespace HabitPlanForum.Server.Data.Entities
         public DateTime CreatedAt { get; set; }
         public ICollection<Post> Posts { get; set; }
 
-        public required string UserID { get; set; }
+        public required string UserId { get; set; }
         public ForumUser User { get; set; }
     }
 }

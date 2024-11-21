@@ -4,6 +4,10 @@ using HabitPlanForum.Server.Data.DTOs;
 using HabitPlanForum.Server.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authorization;
+using HabitPlanForum.Server.Auth.Model;
 
 [Route("api/Topics/{topicId}/Posts/{postId}/[controller]")]
 [ApiController]
@@ -40,6 +44,7 @@ public class CommentsController : ControllerBase
     }
 
     // POST: api/topics/{topicId}/posts/{postId}/comments
+    [Authorize(Roles = ForumRoles.ForumUser)]
     [HttpPost]
     public async Task<ActionResult<CommentDTO>> CreateComment(int topicId, int postId, CreateCommentDTO createCommentDTO)
     {
@@ -60,7 +65,7 @@ public class CommentsController : ControllerBase
         var comment = _mapper.Map<Comment>(createCommentDTO);
         comment.PostId = postId;
         comment.CreatedAt = DateTime.UtcNow;
-
+        comment.UserId = HttpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub);
         try
         {
             _context.Comments.Add(comment);
@@ -78,6 +83,7 @@ public class CommentsController : ControllerBase
     }
 
     // PUT: api/topics/{topicId}/posts/{postId}/comments/{commentId}
+    [Authorize]
     [HttpPut("{commentId}")]
     public async Task<IActionResult> UpdateComment(int topicId, int postId, int commentId, UpdateCommentDTO updateCommentDTO)
     {
@@ -97,6 +103,11 @@ public class CommentsController : ControllerBase
         if (comment == null)
         {
             return NotFound(); // 404 Not Found
+        }
+        if (!HttpContext.User.IsInRole(ForumRoles.Admin) &&
+    HttpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub) != comment.UserId)
+        {
+            return Forbid();
         }
 
         // Use AutoMapper to map the changes from UpdateCommentDTO to the existing Comment entity

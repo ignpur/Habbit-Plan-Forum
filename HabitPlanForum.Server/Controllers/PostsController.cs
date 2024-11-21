@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authorization;
+using HabitPlanForum.Server.Auth.Model;
 
 [Route("api/Topics/{topicId}/[controller]")]
 [ApiController]
@@ -75,6 +79,7 @@ public class PostsController : ControllerBase
     }
 
     // POST: api/topics/{topicId}/posts
+    [Authorize(Roles = ForumRoles.ForumUser)]
     [HttpPost]
     public async Task<ActionResult<PostDTO>> CreatePost(int topicId, CreatePostDTO createPostDTO)
     {
@@ -94,6 +99,7 @@ public class PostsController : ControllerBase
         var post = _mapper.Map<Post>(createPostDTO);
         post.TopicId = topicId;
         post.CreatedAt = DateTime.UtcNow;
+        post.UserId = HttpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub);
 
         try
         {
@@ -137,6 +143,7 @@ public class PostsController : ControllerBase
     }
 
     // PUT: api/topics/{topicId}/posts/{postId}
+    [Authorize]
     [HttpPut("{postId}")]
     public async Task<IActionResult> UpdatePost(int topicId, int postId, UpdatePostDTO updatePostDTO)
     {
@@ -150,7 +157,11 @@ public class PostsController : ControllerBase
         {
             return NotFound(); // 404 Not Found
         }
-
+        if (!HttpContext.User.IsInRole(ForumRoles.Admin) &&
+    HttpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub) != post.UserId)
+        {
+            return Forbid();
+        }
         // Map the changes from UpdatePostDTO to the existing post entity using AutoMapper
         _mapper.Map(updatePostDTO, post);
 

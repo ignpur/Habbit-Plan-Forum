@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authorization;
+using HabitPlanForum.Server.Auth.Model;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -37,6 +41,7 @@ public class TopicsController : ControllerBase
     }
 
     // POST: api/topics
+    [Authorize(Roles = ForumRoles.ForumUser)]
     [HttpPost]
     [Produces("application/json")] // Define the content type Swagger will display
     public async Task<ActionResult<TopicDTO>> CreateTopic(CreateTopicDTO createTopicDTO)
@@ -48,6 +53,7 @@ public class TopicsController : ControllerBase
 
         var topic = _mapper.Map<Topic>(createTopicDTO);
         topic.CreatedAt = DateTime.UtcNow;
+        topic.UserId = HttpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub);
 
         try
         {
@@ -64,6 +70,7 @@ public class TopicsController : ControllerBase
     }
 
     // PUT: api/topics/{topicId}
+    [Authorize]
     [HttpPut("{topicId}")]
     public async Task<IActionResult> UpdateTopic(int topicId, UpdateTopicDTO updateTopicDTO)
     {
@@ -72,7 +79,11 @@ public class TopicsController : ControllerBase
         {
             return NotFound(); // 404 Not Found
         }
-
+        if (!HttpContext.User.IsInRole(ForumRoles.Admin) &&
+    HttpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub) != topic.UserId)
+        {
+            return Forbid();
+        }
         // Map updated fields from DTO to existing entity using AutoMapper
         _mapper.Map(updateTopicDTO, topic);
 
