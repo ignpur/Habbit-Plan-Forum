@@ -4,6 +4,7 @@ using HabitPlanForum.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HabitPlanForum.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241120192822_InitialMigration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +25,7 @@ namespace HabitPlanForum.Server.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("HabitPlanForum.Server.Auth.Model.ForumUser", b =>
+            modelBuilder.Entity("HabitPlanForum.Server.Auth.ForumUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("varchar(255)");
@@ -153,36 +156,6 @@ namespace HabitPlanForum.Server.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Posts");
-                });
-
-            modelBuilder.Entity("HabitPlanForum.Server.Data.Entities.Session", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTimeOffset>("ExpiresAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTimeOffset>("InitiatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<bool>("IsRevoked")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("LastRefreshToken")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Sessions");
                 });
 
             modelBuilder.Entity("HabitPlanForum.Server.Data.Entities.Topic", b =>
@@ -355,7 +328,7 @@ namespace HabitPlanForum.Server.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HabitPlanForum.Server.Auth.Model.ForumUser", "User")
+                    b.HasOne("HabitPlanForum.Server.Auth.ForumUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -374,7 +347,7 @@ namespace HabitPlanForum.Server.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HabitPlanForum.Server.Auth.Model.ForumUser", "User")
+                    b.HasOne("HabitPlanForum.Server.Auth.ForumUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -385,20 +358,9 @@ namespace HabitPlanForum.Server.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("HabitPlanForum.Server.Data.Entities.Session", b =>
-                {
-                    b.HasOne("HabitPlanForum.Server.Auth.Model.ForumUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("HabitPlanForum.Server.Data.Entities.Topic", b =>
                 {
-                    b.HasOne("HabitPlanForum.Server.Auth.Model.ForumUser", "User")
+                    b.HasOne("HabitPlanForum.Server.Auth.ForumUser", "User")
                         .WithMany()
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -418,7 +380,7 @@ namespace HabitPlanForum.Server.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("HabitPlanForum.Server.Auth.Model.ForumUser", null)
+                    b.HasOne("HabitPlanForum.Server.Auth.ForumUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -427,7 +389,7 @@ namespace HabitPlanForum.Server.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("HabitPlanForum.Server.Auth.Model.ForumUser", null)
+                    b.HasOne("HabitPlanForum.Server.Auth.ForumUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -442,7 +404,7 @@ namespace HabitPlanForum.Server.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HabitPlanForum.Server.Auth.Model.ForumUser", null)
+                    b.HasOne("HabitPlanForum.Server.Auth.ForumUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -451,7 +413,7 @@ namespace HabitPlanForum.Server.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("HabitPlanForum.Server.Auth.Model.ForumUser", null)
+                    b.HasOne("HabitPlanForum.Server.Auth.ForumUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

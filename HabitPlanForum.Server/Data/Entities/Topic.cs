@@ -1,4 +1,7 @@
-﻿namespace HabitPlanForum.Server.Data.Entities
+﻿using HabitPlanForum.Server.Auth.Model;
+using Microsoft.Extensions.Hosting;
+
+namespace HabitPlanForum.Server.Data.Entities
 {
     public class Topic
     {
@@ -7,5 +10,8 @@
         public string Description { get; set; }
         public DateTime CreatedAt { get; set; }
         public ICollection<Post> Posts { get; set; }
+
+        public required string UserID { get; set; }
+        public ForumUser User { get; set; }
     }
 }

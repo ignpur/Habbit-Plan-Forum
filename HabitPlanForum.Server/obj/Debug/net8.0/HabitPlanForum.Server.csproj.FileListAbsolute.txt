@@ -215,3 +215,12 @@ C:\github\Habbit-Plan-Forum\HabitPlanForum.Server\obj\Debug\net8.0\refint\HabitP
 C:\github\Habbit-Plan-Forum\HabitPlanForum.Server\obj\Debug\net8.0\HabitPlanForum.Server.pdb
 C:\github\Habbit-Plan-Forum\HabitPlanForum.Server\obj\Debug\net8.0\HabitPlanForum.Server.genruntimeconfig.cache
 C:\github\Habbit-Plan-Forum\HabitPlanForum.Server\obj\Debug\net8.0\ref\HabitPlanForum.Server.dll
+C:\github\Habbit-Plan-Forum\HabitPlanForum.Server\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\github\Habbit-Plan-Forum\HabitPlanForum.Server\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\github\Habbit-Plan-Forum\HabitPlanForum.Server\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\github\Habbit-Plan-Forum\HabitPlanForum.Server\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\github\Habbit-Plan-Forum\HabitPlanForum.Server\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\github\Habbit-Plan-Forum\HabitPlanForum.Server\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\github\Habbit-Plan-Forum\HabitPlanForum.Server\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\github\Habbit-Plan-Forum\HabitPlanForum.Server\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\github\Habbit-Plan-Forum\HabitPlanForum.Server\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
