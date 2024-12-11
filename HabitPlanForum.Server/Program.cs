@@ -120,19 +120,17 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-// Enable HTTPS redirection
-app.UseHttpsRedirection();
 
 // Enable CORS
 app.UseCors("AllowAll");
+
+// Enable HTTPS redirection
+app.UseHttpsRedirection();
 
 app.UseAuthentication();
 
 app.UseAuthorization();
 
 app.MapControllers();
-
-// Fallback to index.html for React routing
-app.MapFallbackToFile("/index.html");
 
 app.Run();
