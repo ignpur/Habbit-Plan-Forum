@@ -104,8 +104,9 @@ public class CommentsController : ControllerBase
         {
             return NotFound(); // 404 Not Found
         }
+        //Authorization
         if (!HttpContext.User.IsInRole(ForumRoles.Admin) &&
-    HttpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub) != comment.UserId)
+        HttpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub) != comment.UserId)
         {
             return Forbid();
         }
@@ -125,6 +126,7 @@ public class CommentsController : ControllerBase
     }
 
     // DELETE: api/topics/{topicId}/posts/{postId}/comments/{commentId}
+    [Authorize]
     [HttpDelete("{commentId}")]
     public async Task<IActionResult> DeleteComment(int topicId, int postId, int commentId)
     {
@@ -136,6 +138,12 @@ public class CommentsController : ControllerBase
                 return NotFound(); // 404 Not Found
             }
 
+            //Authorization
+            if (!HttpContext.User.IsInRole(ForumRoles.Admin) &&
+                HttpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub) != comment.UserId)
+            {
+                return Forbid(); // 403 Forbidden
+            }
             _context.Comments.Remove(comment);
             await _context.SaveChangesAsync();
 

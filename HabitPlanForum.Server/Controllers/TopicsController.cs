@@ -10,6 +10,7 @@ using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authorization;
 using HabitPlanForum.Server.Auth.Model;
+using Microsoft.Extensions.Hosting;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -61,7 +62,7 @@ public class TopicsController : ControllerBase
             await _context.SaveChangesAsync();
 
             var topicDTO = _mapper.Map<TopicDTO>(topic);
-            return CreatedAtAction(nameof(GetTopics), new { topicId = topic.Id }, topicDTO); // Changed `id` to `topicId`
+            return CreatedAtAction(nameof(GetTopics), new { topicId = topic.Id }, topicDTO);
         }
         catch
         {
@@ -123,6 +124,7 @@ public class TopicsController : ControllerBase
     }
 
     // DELETE: api/topics/{topicId}
+    [Authorize]
     [HttpDelete("{topicId}")]
     public async Task<IActionResult> DeleteTopic(int topicId)
     {
@@ -132,6 +134,13 @@ public class TopicsController : ControllerBase
             if (topic == null)
             {
                 return NotFound(); // 404 Not Found
+            }
+
+            //Authorization
+            if (!HttpContext.User.IsInRole(ForumRoles.Admin) &&
+        HttpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub) != topic.UserId)
+            {
+                return Forbid();
             }
 
             _context.Topics.Remove(topic);

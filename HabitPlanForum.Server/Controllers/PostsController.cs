@@ -157,6 +157,8 @@ public class PostsController : ControllerBase
         {
             return NotFound(); // 404 Not Found
         }
+
+        //Authorization
         if (!HttpContext.User.IsInRole(ForumRoles.Admin) &&
     HttpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub) != post.UserId)
         {
@@ -178,6 +180,7 @@ public class PostsController : ControllerBase
     }
 
     // DELETE: api/topics/{topicId}/posts/{postId}
+    [Authorize]
     [HttpDelete("{postId}")]
     public async Task<IActionResult> DeletePost(int topicId, int postId)
     {
@@ -187,6 +190,13 @@ public class PostsController : ControllerBase
             if (post == null)
             {
                 return NotFound(); // 404 Not Found
+            }
+
+            //Authorization
+            if (!HttpContext.User.IsInRole(ForumRoles.Admin) &&
+            HttpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub) != post.UserId)
+            {
+                return Forbid();
             }
 
             _context.Posts.Remove(post);
