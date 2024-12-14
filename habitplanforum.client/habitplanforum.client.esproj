@@ -11,7 +11,6 @@
   <ItemGroup>
     <Folder Include="src\components\" />
     <Folder Include="src\features\" />
-    <Folder Include="src\hooks\" />
     <Folder Include="src\utils\" />
     <Folder Include="src\styles\" />
     <Folder Include="src\services\" />

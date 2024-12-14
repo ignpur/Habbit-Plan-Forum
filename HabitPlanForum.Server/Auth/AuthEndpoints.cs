@@ -66,7 +66,7 @@ namespace HabitPlanForum.Server.Auth
                     HttpOnly = true,
                     SameSite = SameSiteMode.Lax,
                     Expires = expiresAt,
-                    //Secure = false
+                    Secure = true ///WHILE IN PRODUCTION IT HAS TO BE TRUE, after production is should be false
                 };
 
                 httpContext.Response.Cookies.Append("RefreshToken", refreshToken, cookieOptions);
@@ -126,6 +126,17 @@ namespace HabitPlanForum.Server.Auth
                 await sessionService.ExtendSessionAsync(sessionIdAsGuid, newRefreshToken, expiresAt);
 
                 return Results.Ok(new SuccessfulLoginDto(accessToken));
+            });
+
+            // Get UserName by UserId
+            app.MapGet("api/accounts/{userId}", async (UserManager<ForumUser> userManager, string userId) =>
+            {
+                var user = await userManager.FindByIdAsync(userId);
+                if (user == null)
+                {
+                    return Results.NotFound("User not found");
+                }
+                return Results.Ok(new { UserName = user.UserName });
             });
 
             //Logout

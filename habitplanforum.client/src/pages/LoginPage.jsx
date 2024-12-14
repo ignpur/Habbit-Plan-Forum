@@ -14,7 +14,7 @@ const LoginPage = () => {
             await login({ userName, password }); // Send username instead of email
             navigate('/dashboard');
         } catch (err) {
-            console.error('Login error:', err); // ✅ Use the error
+            console.error('Login error:', err);
             setError('Invalid username or password');
         }
     };
