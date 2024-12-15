@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { fetchTopics } from '../api/topics'; // Import from topics.js
 import { fetchUserNameById } from '../api/users'; // Import from users.js
 import { logout } from '../api/auth'; // Import logout from auth.js
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; // Import Link from react-router-dom
 import useAuth from '../hooks/useAuth';
 
 const DashboardPage = () => {
@@ -60,7 +60,9 @@ const DashboardPage = () => {
             <ul>
                 {topics.map(topic => (
                     <li key={topic.id}>
-                        <h2>{topic.title}</h2>
+                        <h2>
+                            <Link to={`/topics/${topic.id}`}>{topic.title}</Link> {/* Make title a clickable link */}
+                        </h2>
                         <p>{topic.description}</p>
                         <p>Posted by: {usernames[topic.userId] || 'Loading...'}</p>
                     </li>

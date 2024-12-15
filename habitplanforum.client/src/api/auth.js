@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-    baseURL: 'http://localhost:5001',
+    baseURL: 'http://localhost:5001/api',
     headers: { 'Content-Type': 'application/json' },
     withCredentials: true
 });
@@ -12,25 +12,39 @@ API.interceptors.request.use(async (config) => {
     if (accessToken) {
         const payload = JSON.parse(atob(accessToken.split('.')[1])); // Decode JWT payload
         const expirationTime = payload.exp * 1000; // JWT expiration time is in seconds, so convert to ms
+
         if (Date.now() > expirationTime) {
             try {
                 console.log('Access token expired. Refreshing...');
-                const response = await API.post('/api/accessToken', {}, { withCredentials: true });
+                const response = await API.post('/accessToken', {}, { withCredentials: true });
+
+                if (response.status === 401) {
+                    console.warn('Access token refresh failed. Logging out.');
+                    localStorage.removeItem('accessToken'); // Remove the old token
+                    window.location.href = '/login'; // Force the user to log in
+                    return config;
+                }
+
                 accessToken = response.data.accessToken;
                 localStorage.setItem('accessToken', accessToken);
             } catch (error) {
                 console.error('Failed to refresh access token:', error);
                 localStorage.removeItem('accessToken');
+                window.location.href = '/login'; // Redirect to login if refresh fails
+                return config;
             }
         }
+
         config.headers['Authorization'] = `Bearer ${accessToken}`;
     }
     return config;
 });
 
+
+// Login API
 export const login = async (credentials) => {
     try {
-        const response = await API.post('/api/login', credentials);
+        const response = await API.post('/login', credentials);
         localStorage.setItem('accessToken', response.data.accessToken); // Store access token
         return response.data.user;
     } catch (error) {
@@ -41,7 +55,7 @@ export const login = async (credentials) => {
 
 export const logout = async () => {
     try {
-        await API.post('/api/logout', {}, { withCredentials: true });
+        await API.post('/logout', {}, { withCredentials: true });
         localStorage.removeItem('accessToken');
     } catch (error) {
         console.error('Failed to logout:', error);
@@ -50,7 +64,7 @@ export const logout = async () => {
 
 export const register = async (userData) => {
     try {
-        const response = await API.post('/api/accounts', userData);
+        const response = await API.post('/accounts', userData);
         return response.data;
     } catch (error) {
         console.error('Failed to register:', error);

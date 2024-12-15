@@ -54,13 +54,25 @@ builder.Services.AddAuthorization();
 
 
 // Configure CORS policy
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowAll", builder =>
+//    {
+//        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials();
+//    });
+//});
+
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", builder =>
+    options.AddPolicy("AllowFrontend", builder =>
     {
-        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+        builder.WithOrigins("https://localhost:5173") // Replace this with your frontend's URL
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .AllowCredentials(); // This allows credentials like cookies, headers, etc.
     });
 });
+
 
 // Add Swagger/OpenAPI services
 builder.Services.AddEndpointsApiExplorer();
@@ -120,12 +132,11 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-
-// Enable CORS
-app.UseCors("AllowAll");
-
 // Enable HTTPS redirection
 app.UseHttpsRedirection();
+
+// Enable CORS
+app.UseCors("AllowFrontend");
 
 app.UseAuthentication();
 

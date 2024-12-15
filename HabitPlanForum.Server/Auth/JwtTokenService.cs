@@ -33,7 +33,7 @@ namespace HabitPlanForum.Server.Auth
             var token = new JwtSecurityToken(
                 issuer: _issuer,
                 audience: _audience,
-                expires: DateTime.Now.AddMinutes(10),
+                expires: DateTime.Now.AddMinutes(15),
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(_authSignKey, SecurityAlgorithms.HmacSha256)
             );

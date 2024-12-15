@@ -1,44 +1,92 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { fetchTopicDetails, fetchPosts } from '../api/posts';
+import { logout } from '../api/auth';
 
 const TopicDetailsPage = () => {
-    const { topicId } = useParams(); // Get topicId from URL
+    const { topicId } = useParams();
     const [topic, setTopic] = useState(null);
+    const [posts, setPosts] = useState([]);
+    const [error, setError] = useState(null);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const navigate = useNavigate();
 
-    const fetchTopicDetails = async () => {
+    useEffect(() => {
+        const loadData = async () => {
+            try {
+                const topicData = await fetchTopicDetails(topicId);
+                if (topicData === null) {
+                    setError('No posts available for this topic.');
+                    setIsLoaded(true);
+                    return;
+                }
+                setTopic(topicData);
+            } catch (err) {
+                console.error('Error fetching topic details', err);
+                setError('Failed to load topic details.');
+                setIsLoaded(true);
+                return;
+            }
+
+            try {
+                const postData = await fetchPosts(topicId);
+                setPosts(postData);
+            } catch (err) {
+                console.error('Error fetching posts', err);
+                setError('Failed to load posts.');
+            } finally {
+                setIsLoaded(true);
+            }
+        };
+
+        loadData();
+    }, [topicId]);
+
+    const handleLogout = async () => {
         try {
-            const response = await axios.get(`http://localhost:5001/api/topics/${topicId}`);
-            setTopic(response.data);
-        } catch (err) {
-            console.error('Error fetching topic details', err);
+            await logout();
+            navigate('/login');
+        } catch (error) {
+            console.error('Logout failed', error);
         }
     };
 
-    useEffect(() => {
-        fetchTopicDetails();
-    }, [topicId]);
+    const handleBack = () => {
+        navigate(-1);
+    };
 
-    if (!topic) {
-        return <p>Loading...</p>;
+    if (!isLoaded) {
+        return <p>Loading topic details...</p>;
     }
 
     return (
         <div>
-            <h1>{topic.title}</h1>
-            <p>{topic.description}</p>
-            <h2>Posts</h2>
-            {topic.posts.length > 0 ? (
-                <ul>
-                    {topic.posts.map((post) => (
-                        <li key={post.id}>
-                            <h3>{post.title}</h3>
-                            <p>{post.content}</p>
-                        </li>
-                    ))}
-                </ul>
+            <header>
+                <button onClick={handleBack}>Back</button>
+                <button onClick={handleLogout}>Logout</button>
+            </header>
+
+            {error ? (
+                <p>{error}</p>
             ) : (
-                <p>No posts available for this topic</p>
+                <>
+                    <h1>{topic.title}</h1>
+                    <p>{topic.description}</p>
+
+                    <h2>Posts</h2>
+                    {posts.length > 0 ? (
+                        <ul>
+                            {posts.map((post) => (
+                                <li key={post.id}>
+                                    <h3>{post.title}</h3>
+                                    <p>{post.content}</p>
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <p>No posts available for this topic</p>
+                    )}
+                </>
             )}
         </div>
     );

@@ -2,7 +2,7 @@ import API from './auth'; // Import the same axios instance from auth.js
 
 export const fetchTopics = async () => {
     try {
-        const response = await API.get('/api/topics');
+        const response = await API.get('/Topics');
         return response.data;
     } catch (err) {
         console.error('Error fetching topics', err);
@@ -12,7 +12,7 @@ export const fetchTopics = async () => {
 
 export const createTopic = async (topicData) => {
     try {
-        const response = await API.post('/api/topics', topicData);
+        const response = await API.post('/Topics', topicData);
         return response.data;
     } catch (err) {
         console.error('Error creating topic', err);

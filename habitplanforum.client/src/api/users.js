@@ -4,7 +4,7 @@ export const fetchUserNameById = async (userId) => {
     try {
         console.log(`Fetching username for UserId: ${userId}`);
 
-        const response = await API.get(`/api/accounts/${userId}`);
+        const response = await API.get(`/accounts/${userId}`);
 
         const userName = response.data.userName;
         if (!userName) {
