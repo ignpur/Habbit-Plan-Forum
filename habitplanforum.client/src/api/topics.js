@@ -70,3 +70,27 @@ export const deleteTopic = async (topicId) => {
         }
     }
 };
+
+export const updateTopic = async (topicId, updatedData) => {
+    try {
+        const response = await API.put(`/topics/${topicId}`, updatedData, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error updating topic:', error);
+        throw error;
+    }
+};
+
+export const fetchTopicDetails = async (topicId) => {
+    try {
+        const response = await API.get(`/topics/${topicId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching topic details:', error);
+        throw error;
+    }
+};

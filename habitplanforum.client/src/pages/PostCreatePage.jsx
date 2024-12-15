@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { createPost } from '../api/posts';
+import Header from '../components/Header';
 
 const PostCreatePage = () => {
     const { topicId } = useParams();
@@ -23,6 +24,7 @@ const PostCreatePage = () => {
 
     return (
         <div>
+            <Header />
             <h1>Create a Post</h1>
             {error && <p style={{ color: 'red' }}>{error}</p>}
             <form onSubmit={handleSubmit}>

@@ -6,6 +6,8 @@ import DashboardPage from './pages/DashboardPage';
 import TopicDetailsPage from './pages/TopicDetailsPage';
 import TopicCreatePage from './pages/TopicCreatePage';
 import PostCreatePage from './pages/PostCreatePage';
+import TopicUpdatePage from './pages/TopicUpdatePage';
+import PostDetailsPage from './pages/PostDetailsPage';
 import './App.css';
 
 
@@ -19,7 +21,9 @@ function App() {
                 <Route path="/dashboard" element={<DashboardPage />} />
                 <Route path="/topics/:topicId" element={<TopicDetailsPage />} />
                 <Route path="/create-topic" element={<TopicCreatePage />} /> 
+                <Route path="/topics/:topicId/update" element={<TopicUpdatePage />} />
                 <Route path="/topics/:topicId/create-post" element={<PostCreatePage />} />
+                <Route path="/topics/:topicId/posts/:postId" element={<PostDetailsPage />} />
             </Routes>
         </Router>
     );

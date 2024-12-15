@@ -1,6 +1,6 @@
 import { useState } from 'react';
-
 import { register } from '../api/auth';
+import Header from '../components/Header';
 
 const RegisterPage = () => {
     const [email, setEmail] = useState('');
@@ -20,6 +20,7 @@ const RegisterPage = () => {
 
     return (
         <div>
+            <Header />
             <h1>Register</h1>
             {success ? <p>Registration successful! You can now login.</p> : (
                 <form onSubmit={handleSubmit}>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../api/auth';
+import Header from '../components/Header';
 
 const LoginPage = () => {
     const [userName, setUserName] = useState('');
@@ -12,7 +13,7 @@ const LoginPage = () => {
         e.preventDefault();
         try {
             await login({ userName, password }); // Send username instead of email
-            navigate('/dashboard');
+            navigate('/');
         } catch (err) {
             console.error('Login error:', err);
             setError('Invalid username or password');
@@ -21,6 +22,7 @@ const LoginPage = () => {
 
     return (
         <div>
+            <Header />
             <h1>Login</h1>
             {error && <p>{error}</p>}
             <form onSubmit={handleSubmit}>

@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { fetchTopics } from '../api/topics';
 import { fetchUserNameById } from '../api/users';
-import { logout } from '../api/auth';
+//import { logout } from '../api/auth';
 import { useNavigate, Link } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
+import Header from '../components/Header';
 
 const DashboardPage = () => {
     const [topics, setTopics] = useState([]);
@@ -48,10 +49,10 @@ const DashboardPage = () => {
         loadTopics();
     }, []);
 
-    const handleLogout = async () => {
-        await logout();
-        navigate('/login');
-    };
+    //const handleLogout = async () => {
+    //    await logout();
+    //    navigate('/login');
+    //};
 
     const handleCreateNewTopic = () => {
         navigate('/create-topic'); // Navigate to the TopicCreatePage
@@ -59,8 +60,9 @@ const DashboardPage = () => {
 
     return (
         <div>
+            <Header />
             <h1>All Topics</h1>
-            <button onClick={handleLogout}>Logout</button>
+            {/*<button onClick={handleLogout}>Logout</button>*/}
 
             {/* New "Create New Topic" button */}
             <button style={{ backgroundColor: 'lightblue' }} onClick={handleCreateNewTopic}>Create New Topic</button> 

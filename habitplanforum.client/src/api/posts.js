@@ -4,7 +4,7 @@ import { getToken } from './auth';
 // Function to fetch topic details by topicId
 export const fetchTopicDetails = async (topicId) => {
     try {
-        const response = await API.get(`/Topics/${topicId}/related-posts`);
+        const response = await API.get(`/Topics/${topicId}`);
         return response.data;
     } catch (error) {
         if (error.response && error.response.status === 404) {
@@ -46,6 +46,17 @@ export const createPost = async (topicId, postData) => {
         return response.data;
     } catch (error) {
         console.error('Error creating post:', error);
+        throw error;
+    }
+};
+
+
+export const fetchPostById = async (topicId, postId) => {
+    try {
+        const response = await API.get(`/Topics/${topicId}/posts/${postId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching post:', error);
         throw error;
     }
 };

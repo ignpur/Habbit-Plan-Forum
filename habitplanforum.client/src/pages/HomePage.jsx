@@ -1,15 +1,25 @@
-//import React from 'react';
 import { Link } from 'react-router-dom';
+import Header from '../components/Header';
+import useAuth from '../hooks/useAuth';
+import buttonStyles from '../styles/buttonStyles';
 
 const HomePage = () => {
+    const isAuthenticated = useAuth(); // Check if user is authenticated
+
     return (
         <div>
+            <Header />
             <h1>Welcome to Habit Plan Sharing Forum</h1>
-            <p>This is the homepage where users can login, register, or browse the forum.</p>
+            <p>This is the homepage where users can login and register</p>
 
-            <Link to="/login">Login</Link> |
-            <Link to="/register">Register</Link> |
-            <Link to="/dashboard">Dashboard</Link>
+            {isAuthenticated ? (
+                <Link to="/dashboard" style={buttonStyles.primary}>Dashboard</Link>
+            ) : (
+                <>
+                    <Link to="/register" style={buttonStyles.primary}>Register</Link>
+                    <Link to="/login" style={buttonStyles.primary}>Login</Link>
+                </>
+            )}
         </div>
     );
 };

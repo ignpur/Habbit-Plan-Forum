@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { fetchTopicDetails, fetchPosts } from '../api/posts';
 import { fetchUserNameById } from '../api/users';
 import { deleteTopic } from '../api/topics';
-import { logout } from '../api/auth';
+import Header from '../components/Header';
 
 const TopicDetailsPage = () => {
     const { topicId } = useParams();
@@ -19,12 +19,18 @@ const TopicDetailsPage = () => {
         const loadData = async () => {
             try {
                 const topicData = await fetchTopicDetails(topicId);
+
+                // If the API response says the topic doesn't exist, display the message and stop further execution
+                if (!topicData) {
+                    setError('There is no such topic.');
+                    return;
+                }
+
                 setTopic(topicData);
 
-                const postData = await fetchPosts(topicId); // Handles 404 gracefully
+                const postData = await fetchPosts(topicId);
                 setPosts(postData);
 
-                // Fetch usernames for post creators
                 const uniqueUserIds = [...new Set(postData.map(post => post.userId))];
                 const userFetchPromises = uniqueUserIds.map(async (userId) => {
                     try {
@@ -54,22 +60,12 @@ const TopicDetailsPage = () => {
         loadData();
     }, [topicId]);
 
-
-    const handleLogout = async () => {
-        try {
-            await logout();
-            navigate('/login');
-        } catch (error) {
-            console.error('Logout failed', error);
-        }
-    };
-
     const handleBack = () => {
         navigate('/dashboard');
     };
 
     const handleCreatePost = () => {
-        navigate(`/topics/${topicId}/create-post`); // Navigate to PostCreatePage
+        navigate(`/topics/${topicId}/create-post`);
     };
 
     const handleDeleteTopic = async () => {
@@ -83,46 +79,54 @@ const TopicDetailsPage = () => {
         }
     };
 
+    const handleUpdateTopic = () => {
+        navigate(`/topics/${topicId}/update`);
+    };
+
     if (!isLoaded) {
         return <p>Loading topic details...</p>;
     }
 
+    if (error === 'There is no such topic.') {
+        return <p>There is no such topic.</p>;
+    }
+
     return (
         <div>
+            <Header />
             <header>
                 <button onClick={handleBack}>Back</button>
-                <button onClick={handleLogout}>Logout</button>
                 <button style={{ backgroundColor: 'red', color: 'white' }} onClick={handleDeleteTopic}>
                     Delete Topic
                 </button>
                 <button onClick={handleCreatePost} style={{ backgroundColor: 'lightblue', marginLeft: '10px' }}>
                     Create Post
                 </button>
+                <button onClick={handleUpdateTopic} style={{ backgroundColor: 'orange', marginLeft: '10px' }}>
+                    Update Topic
+                </button>
             </header>
 
-            {error ? (
-                <p>{error}</p>
-            ) : (
-                <>
-                    {deleteError && <p style={{ color: 'red' }}>{deleteError}</p>}
+            {deleteError && <p style={{ color: 'red' }}>{deleteError}</p>}
 
-                    <h2>Posts</h2>
-                    {topic ? (
-                        <ul>
-                            {posts.map((post) => (
-                                <li key={post.id}>
-                                    <h3>{post.title}</h3>
-                                    <p>{post.content}</p>
-                                    <p>
-                                        Posted by: {usernames[post.userId] || 'Loading...'}
-                                    </p>
-                                </li>
-                            ))}
-                        </ul>
-                    ) : (
-                        <p>No posts available for this topic</p>
-                    )}
-                </>
+            <h1>{topic.title}</h1>
+            <h2>Posts</h2>
+            {posts.length > 0 ? (
+                <ul>
+                    {posts.map((post) => (
+                        <li key={post.id}>
+                            <h3  style={{ color: 'blue', cursor: 'pointer' }}
+                                onClick={() => navigate(`/topics/${topicId}/posts/${post.id}`)}
+                            >{post.title}</h3>
+                            <p>{post.content}</p>
+                            <p>
+                                Posted by: {usernames[post.userId] || 'Loading...'}
+                            </p>
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p>No posts available for this topic</p>
             )}
         </div>
     );

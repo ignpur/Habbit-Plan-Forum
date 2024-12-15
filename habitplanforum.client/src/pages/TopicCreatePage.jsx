@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createTopic } from '../api/topics'; // Import the function to create a topic
+import Header from '../components/Header';
 
 const TopicCreatePage = () => {
     const [title, setTitle] = useState('');
@@ -26,6 +27,7 @@ const TopicCreatePage = () => {
 
     return (
         <div>
+            <Header />
             <h1>Create a New Topic</h1>
             {error && <p style={{ color: 'red' }}>{error}</p>}
             <form onSubmit={handleSubmit}>

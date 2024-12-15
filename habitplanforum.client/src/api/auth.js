@@ -100,7 +100,7 @@ export const logout = async () => {
                 .replace(/^ +/, "")
                 .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
         });
-        window.location.href = '/login';
+        window.location.href = '/';
     } catch (error) {
         console.error('Failed to logout', error);
     }

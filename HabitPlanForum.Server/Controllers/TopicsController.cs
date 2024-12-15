@@ -99,26 +99,31 @@ public class TopicsController : ControllerBase
         }
     }
 
-    // GET: api/Topics/{topicId}/Posts
-    [HttpGet("{topicId}/related-posts")]
+    // GET: api/Topics/{topicId}
+    [HttpGet("{topicId}")]
     public async Task<ActionResult<IEnumerable<PostDTO>>> GetPostsByTopic(int topicId)
     {
         try
         {
-            var posts = await _context.Posts
-                .Where(p => p.TopicId == topicId)
-                .ToListAsync();
+            // Retrieve the topic from the database
+            var topic = await _context.Topics
+                .FirstOrDefaultAsync(t => t.Id == topicId);
 
-            if (posts == null || posts.Count == 0)
+            // Check if the topic exists
+            if (topic == null)
             {
                 return NotFound(); // 404 Not Found
             }
 
-            var postDTOs = _mapper.Map<List<PostDTO>>(posts);
-            return Ok(postDTOs); // 200 OK
+            // Map the Topic entity to a TopicDTO
+            var topicDTO = _mapper.Map<TopicDTO>(topic);
+
+            // Return the topic data
+            return Ok(topicDTO); // 200 OK
         }
         catch
         {
+            // Handle any server errors
             return StatusCode(500, "An internal server error occurred."); // 500 Internal Server Error
         }
     }
