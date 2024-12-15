@@ -1,4 +1,5 @@
 import API from './auth';
+import { getToken } from './auth';
 
 // Function to fetch topic details by topicId
 export const fetchTopicDetails = async (topicId) => {
@@ -27,5 +28,24 @@ export const fetchPosts = async (topicId) => {
         }
         console.error('Error fetching posts', error);
         throw new Error('Failed to load posts.');
+    }
+};
+
+export const createPost = async (topicId, postData) => {
+    try {
+        const token = getToken(); // Retrieve access token
+        const response = await API.post(
+            `/Topics/${topicId}/posts`,
+            postData,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Attach token
+                },
+            }
+        );
+        return response.data;
+    } catch (error) {
+        console.error('Error creating post:', error);
+        throw error;
     }
 };

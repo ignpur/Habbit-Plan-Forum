@@ -63,7 +63,7 @@ const DashboardPage = () => {
             <button onClick={handleLogout}>Logout</button>
 
             {/* New "Create New Topic" button */}
-            <button onClick={handleCreateNewTopic}>Create New Topic</button> 
+            <button style={{ backgroundColor: 'lightblue' }} onClick={handleCreateNewTopic}>Create New Topic</button> 
             <ul>
                 {topics.map(topic => (
                     <li key={topic.id}>

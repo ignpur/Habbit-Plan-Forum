@@ -1,41 +1,51 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { fetchTopicDetails, fetchPosts } from '../api/posts';
-import { deleteTopic } from '../api/topics'; // ✅ Import delete method
-import { logout } from '../api/auth'; // ✅ Logout logic
+import { fetchUserNameById } from '../api/users';
+import { deleteTopic } from '../api/topics';
+import { logout } from '../api/auth';
 
 const TopicDetailsPage = () => {
-    const { topicId } = useParams(); // ✅ Use topicId for deletion
+    const { topicId } = useParams();
     const [topic, setTopic] = useState(null);
     const [posts, setPosts] = useState([]);
+    const [usernames, setUsernames] = useState({});
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [deleteError, setDeleteError] = useState(''); // ✅ Error message for delete
+    const [deleteError, setDeleteError] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
         const loadData = async () => {
             try {
                 const topicData = await fetchTopicDetails(topicId);
-                if (topicData === null) {
-                    setError('No posts available for this topic.');
-                    setIsLoaded(true);
-                    return;
-                }
                 setTopic(topicData);
-            } catch (err) {
-                console.error('Error fetching topic details', err);
-                setError('Failed to load topic details.');
-                setIsLoaded(true);
-                return;
-            }
 
-            try {
-                const postData = await fetchPosts(topicId);
+                const postData = await fetchPosts(topicId); // Handles 404 gracefully
                 setPosts(postData);
+
+                // Fetch usernames for post creators
+                const uniqueUserIds = [...new Set(postData.map(post => post.userId))];
+                const userFetchPromises = uniqueUserIds.map(async (userId) => {
+                    try {
+                        const userName = await fetchUserNameById(userId);
+                        return { userId, userName };
+                    } catch (err) {
+                        console.error(`Failed to fetch UserName for ${userId}:`, err);
+                        return { userId, userName: 'Unknown User' };
+                    }
+                });
+
+                const users = await Promise.all(userFetchPromises);
+                const newUsernames = {};
+                users.forEach(user => {
+                    if (user) newUsernames[user.userId] = user.userName;
+                });
+                setUsernames(newUsernames);
+
             } catch (err) {
-                console.error('Error fetching posts', err);
-                setError('Failed to load posts.');
+                console.error('Error fetching topic details:', err);
+                setError('Failed to load topic details.');
             } finally {
                 setIsLoaded(true);
             }
@@ -43,6 +53,7 @@ const TopicDetailsPage = () => {
 
         loadData();
     }, [topicId]);
+
 
     const handleLogout = async () => {
         try {
@@ -54,17 +65,21 @@ const TopicDetailsPage = () => {
     };
 
     const handleBack = () => {
-        navigate(-1);
+        navigate('/dashboard');
+    };
+
+    const handleCreatePost = () => {
+        navigate(`/topics/${topicId}/create-post`); // Navigate to PostCreatePage
     };
 
     const handleDeleteTopic = async () => {
         try {
-            await deleteTopic(topicId); // ✅ Delete the topic using topicId
+            await deleteTopic(topicId);
             alert('Topic successfully deleted');
-            navigate('/dashboard'); // ✅ Redirect to dashboard
+            navigate('/dashboard');
         } catch (error) {
             console.error('Failed to delete topic', error);
-            setDeleteError(error.message); // ✅ Set the error message
+            setDeleteError(error.message);
         }
     };
 
@@ -77,13 +92,11 @@ const TopicDetailsPage = () => {
             <header>
                 <button onClick={handleBack}>Back</button>
                 <button onClick={handleLogout}>Logout</button>
-
-                {/* ✅ New delete button next to back and logout */}
-                <button
-                    style={{ backgroundColor: 'red', color: 'white' }}
-                    onClick={handleDeleteTopic}
-                >
+                <button style={{ backgroundColor: 'red', color: 'white' }} onClick={handleDeleteTopic}>
                     Delete Topic
+                </button>
+                <button onClick={handleCreatePost} style={{ backgroundColor: 'lightblue', marginLeft: '10px' }}>
+                    Create Post
                 </button>
             </header>
 
@@ -91,18 +104,18 @@ const TopicDetailsPage = () => {
                 <p>{error}</p>
             ) : (
                 <>
-                    {deleteError && <p style={{ color: 'red' }}>{deleteError}</p>} {/* ✅ Display delete error */}
-
-                    <h1>{topic.title}</h1>
-                    <p>{topic.description}</p>
+                    {deleteError && <p style={{ color: 'red' }}>{deleteError}</p>}
 
                     <h2>Posts</h2>
-                    {posts.length > 0 ? (
+                    {topic ? (
                         <ul>
                             {posts.map((post) => (
                                 <li key={post.id}>
                                     <h3>{post.title}</h3>
                                     <p>{post.content}</p>
+                                    <p>
+                                        Posted by: {usernames[post.userId] || 'Loading...'}
+                                    </p>
                                 </li>
                             ))}
                         </ul>

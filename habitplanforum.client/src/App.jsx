@@ -5,6 +5,7 @@ import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
 import TopicDetailsPage from './pages/TopicDetailsPage';
 import TopicCreatePage from './pages/TopicCreatePage';
+import PostCreatePage from './pages/PostCreatePage';
 import './App.css';
 
 
@@ -18,6 +19,7 @@ function App() {
                 <Route path="/dashboard" element={<DashboardPage />} />
                 <Route path="/topics/:topicId" element={<TopicDetailsPage />} />
                 <Route path="/create-topic" element={<TopicCreatePage />} /> 
+                <Route path="/topics/:topicId/create-post" element={<PostCreatePage />} />
             </Routes>
         </Router>
     );

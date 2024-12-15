@@ -21,7 +21,7 @@ const TopicCreatePage = () => {
     };
 
     const handleBack = () => {
-        navigate(-1);
+        navigate('/dashboard');
     };
 
     return (
@@ -51,7 +51,7 @@ const TopicCreatePage = () => {
                 </div>
 
                 <button type="submit">Create Topic</button>
-                <button onClick={handleBack}>Back</button>
+                <button onClick={handleBack}>Cancel</button>
             </form>
         </div>
     );

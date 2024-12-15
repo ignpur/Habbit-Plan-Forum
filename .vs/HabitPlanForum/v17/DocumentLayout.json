@@ -3,16 +3,12 @@
   "WorkspaceRootPath": "C:\\github\\Habbit-Plan-Forum\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{B0BB71CE-F8F7-4C30-B63C-0E4913780C36}|habitplanforum.client\\habitplanforum.client.esproj|c:\\github\\habbit-plan-forum\\habitplanforum.client\\src\\api\\posts.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{B0BB71CE-F8F7-4C30-B63C-0E4913780C36}|habitplanforum.client\\habitplanforum.client.esproj|solutionrelative:habitplanforum.client\\src\\api\\posts.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B0BB71CE-F8F7-4C30-B63C-0E4913780C36}|habitplanforum.client\\habitplanforum.client.esproj|c:\\github\\habbit-plan-forum\\habitplanforum.client\\src\\pages\\topicdetailspage.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{B0BB71CE-F8F7-4C30-B63C-0E4913780C36}|habitplanforum.client\\habitplanforum.client.esproj|solutionrelative:habitplanforum.client\\src\\pages\\topicdetailspage.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B0BB71CE-F8F7-4C30-B63C-0E4913780C36}|habitplanforum.client\\habitplanforum.client.esproj|c:\\github\\habbit-plan-forum\\habitplanforum.client\\src\\pages\\dashboardpage.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{B0BB71CE-F8F7-4C30-B63C-0E4913780C36}|habitplanforum.client\\habitplanforum.client.esproj|solutionrelative:habitplanforum.client\\src\\pages\\dashboardpage.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B0BB71CE-F8F7-4C30-B63C-0E4913780C36}|habitplanforum.client\\habitplanforum.client.esproj|c:\\github\\habbit-plan-forum\\habitplanforum.client\\src\\api\\topics.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{B0BB71CE-F8F7-4C30-B63C-0E4913780C36}|habitplanforum.client\\habitplanforum.client.esproj|solutionrelative:habitplanforum.client\\src\\api\\topics.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B0BB71CE-F8F7-4C30-B63C-0E4913780C36}|habitplanforum.client\\habitplanforum.client.esproj|c:\\github\\habbit-plan-forum\\habitplanforum.client\\src\\api\\auth.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
@@ -23,32 +19,28 @@
       "RelativeMoniker": "D:0:0:{B0BB71CE-F8F7-4C30-B63C-0E4913780C36}|habitplanforum.client\\habitplanforum.client.esproj|solutionrelative:habitplanforum.client\\src\\pages\\loginpage.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2982C03A-CE0F-4D92-8DC2-2E573A4F92C3}|HabitPlanForum.Server\\HabitPlanForum.Server.csproj|c:\\github\\habbit-plan-forum\\habitplanforum.server\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{2982C03A-CE0F-4D92-8DC2-2E573A4F92C3}|HabitPlanForum.Server\\HabitPlanForum.Server.csproj|solutionrelative:habitplanforum.server\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{B0BB71CE-F8F7-4C30-B63C-0E4913780C36}|habitplanforum.client\\habitplanforum.client.esproj|c:\\github\\habbit-plan-forum\\habitplanforum.client\\src\\pages\\topiccreatepage.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{B0BB71CE-F8F7-4C30-B63C-0E4913780C36}|habitplanforum.client\\habitplanforum.client.esproj|solutionrelative:habitplanforum.client\\src\\pages\\topiccreatepage.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B0BB71CE-F8F7-4C30-B63C-0E4913780C36}|habitplanforum.client\\habitplanforum.client.esproj|c:\\github\\habbit-plan-forum\\habitplanforum.client\\src\\pages\\dashboardpage.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{B0BB71CE-F8F7-4C30-B63C-0E4913780C36}|habitplanforum.client\\habitplanforum.client.esproj|solutionrelative:habitplanforum.client\\src\\pages\\dashboardpage.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B0BB71CE-F8F7-4C30-B63C-0E4913780C36}|habitplanforum.client\\habitplanforum.client.esproj|c:\\github\\habbit-plan-forum\\habitplanforum.client\\src\\pages\\postcreatepage.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{B0BB71CE-F8F7-4C30-B63C-0E4913780C36}|habitplanforum.client\\habitplanforum.client.esproj|solutionrelative:habitplanforum.client\\src\\pages\\postcreatepage.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B0BB71CE-F8F7-4C30-B63C-0E4913780C36}|habitplanforum.client\\habitplanforum.client.esproj|c:\\github\\habbit-plan-forum\\habitplanforum.client\\src\\app.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{B0BB71CE-F8F7-4C30-B63C-0E4913780C36}|habitplanforum.client\\habitplanforum.client.esproj|solutionrelative:habitplanforum.client\\src\\app.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B0BB71CE-F8F7-4C30-B63C-0E4913780C36}|habitplanforum.client\\habitplanforum.client.esproj|c:\\github\\habbit-plan-forum\\habitplanforum.client\\src\\api\\users.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{B0BB71CE-F8F7-4C30-B63C-0E4913780C36}|habitplanforum.client\\habitplanforum.client.esproj|solutionrelative:habitplanforum.client\\src\\api\\users.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{2982C03A-CE0F-4D92-8DC2-2E573A4F92C3}|HabitPlanForum.Server\\HabitPlanForum.Server.csproj|c:\\github\\habbit-plan-forum\\habitplanforum.server\\controllers\\topicscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2982C03A-CE0F-4D92-8DC2-2E573A4F92C3}|HabitPlanForum.Server\\HabitPlanForum.Server.csproj|solutionrelative:habitplanforum.server\\controllers\\topicscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2982C03A-CE0F-4D92-8DC2-2E573A4F92C3}|HabitPlanForum.Server\\HabitPlanForum.Server.csproj|c:\\github\\habbit-plan-forum\\habitplanforum.server\\auth\\model\\forumuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2982C03A-CE0F-4D92-8DC2-2E573A4F92C3}|HabitPlanForum.Server\\HabitPlanForum.Server.csproj|solutionrelative:habitplanforum.server\\auth\\model\\forumuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B0BB71CE-F8F7-4C30-B63C-0E4913780C36}|habitplanforum.client\\habitplanforum.client.esproj|c:\\github\\habbit-plan-forum\\habitplanforum.client\\src\\api\\posts.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{B0BB71CE-F8F7-4C30-B63C-0E4913780C36}|habitplanforum.client\\habitplanforum.client.esproj|solutionrelative:habitplanforum.client\\src\\api\\posts.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2982C03A-CE0F-4D92-8DC2-2E573A4F92C3}|HabitPlanForum.Server\\HabitPlanForum.Server.csproj|c:\\github\\habbit-plan-forum\\habitplanforum.server\\auth\\model\\forumroles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2982C03A-CE0F-4D92-8DC2-2E573A4F92C3}|HabitPlanForum.Server\\HabitPlanForum.Server.csproj|solutionrelative:habitplanforum.server\\auth\\model\\forumroles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2982C03A-CE0F-4D92-8DC2-2E573A4F92C3}|HabitPlanForum.Server\\HabitPlanForum.Server.csproj|c:\\github\\habbit-plan-forum\\habitplanforum.server\\auth\\authendpoints.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2982C03A-CE0F-4D92-8DC2-2E573A4F92C3}|HabitPlanForum.Server\\HabitPlanForum.Server.csproj|solutionrelative:habitplanforum.server\\auth\\authendpoints.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B0BB71CE-F8F7-4C30-B63C-0E4913780C36}|habitplanforum.client\\habitplanforum.client.esproj|c:\\github\\habbit-plan-forum\\habitplanforum.client\\src\\api\\topics.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{B0BB71CE-F8F7-4C30-B63C-0E4913780C36}|habitplanforum.client\\habitplanforum.client.esproj|solutionrelative:habitplanforum.client\\src\\api\\topics.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     }
   ],
   "DocumentGroupContainers": [
@@ -58,17 +50,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "auth.js",
               "DocumentMoniker": "C:\\github\\Habbit-Plan-Forum\\habitplanforum.client\\src\\api\\auth.js",
               "RelativeDocumentMoniker": "habitplanforum.client\\src\\api\\auth.js",
               "ToolTip": "C:\\github\\Habbit-Plan-Forum\\habitplanforum.client\\src\\api\\auth.js",
               "RelativeToolTip": "habitplanforum.client\\src\\api\\auth.js",
-              "ViewState": "AgIAAFcAAAAAAAAAAAApwF4AAAAYAAAAAAAAAA==",
+              "ViewState": "AgIAADYAAAAAAAAAAAApwF4AAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2024-12-11T15:30:19.752Z",
               "IsPinned": true,
@@ -76,46 +68,98 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "ForumUser.cs",
-              "DocumentMoniker": "C:\\github\\Habbit-Plan-Forum\\HabitPlanForum.Server\\Auth\\Model\\ForumUser.cs",
-              "RelativeDocumentMoniker": "HabitPlanForum.Server\\Auth\\Model\\ForumUser.cs",
-              "ToolTip": "C:\\github\\Habbit-Plan-Forum\\HabitPlanForum.Server\\Auth\\Model\\ForumUser.cs",
-              "RelativeToolTip": "HabitPlanForum.Server\\Auth\\Model\\ForumUser.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-15T14:06:06.397Z",
+              "DocumentIndex": 4,
+              "Title": "TopicCreatePage.jsx",
+              "DocumentMoniker": "C:\\github\\Habbit-Plan-Forum\\habitplanforum.client\\src\\pages\\TopicCreatePage.jsx",
+              "RelativeDocumentMoniker": "habitplanforum.client\\src\\pages\\TopicCreatePage.jsx",
+              "ToolTip": "C:\\github\\Habbit-Plan-Forum\\habitplanforum.client\\src\\pages\\TopicCreatePage.jsx",
+              "RelativeToolTip": "habitplanforum.client\\src\\pages\\TopicCreatePage.jsx",
+              "ViewState": "AgIAACcAAAAAAAAAAAAAABcAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2024-12-15T17:57:19.415Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
+              "Title": "PostCreatePage.jsx",
+              "DocumentMoniker": "C:\\github\\Habbit-Plan-Forum\\habitplanforum.client\\src\\pages\\PostCreatePage.jsx",
+              "RelativeDocumentMoniker": "habitplanforum.client\\src\\pages\\PostCreatePage.jsx",
+              "ToolTip": "C:\\github\\Habbit-Plan-Forum\\habitplanforum.client\\src\\pages\\PostCreatePage.jsx",
+              "RelativeToolTip": "habitplanforum.client\\src\\pages\\PostCreatePage.jsx",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAADEAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2024-12-15T17:53:12.394Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "DashboardPage.jsx",
               "DocumentMoniker": "C:\\github\\Habbit-Plan-Forum\\habitplanforum.client\\src\\pages\\DashboardPage.jsx",
               "RelativeDocumentMoniker": "habitplanforum.client\\src\\pages\\DashboardPage.jsx",
               "ToolTip": "C:\\github\\Habbit-Plan-Forum\\habitplanforum.client\\src\\pages\\DashboardPage.jsx",
               "RelativeToolTip": "habitplanforum.client\\src\\pages\\DashboardPage.jsx",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADQAAAAAAAAAAAApwEEAAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
               "WhenOpened": "2024-12-11T15:22:07.471Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "App.jsx",
               "DocumentMoniker": "C:\\github\\Habbit-Plan-Forum\\habitplanforum.client\\src\\App.jsx",
               "RelativeDocumentMoniker": "habitplanforum.client\\src\\App.jsx",
               "ToolTip": "C:\\github\\Habbit-Plan-Forum\\habitplanforum.client\\src\\App.jsx",
               "RelativeToolTip": "habitplanforum.client\\src\\App.jsx",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAYAAAA2AAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABIAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
               "WhenOpened": "2024-12-11T14:29:20.808Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
+              "Title": "posts.js",
+              "DocumentMoniker": "C:\\github\\Habbit-Plan-Forum\\habitplanforum.client\\src\\api\\posts.js",
+              "RelativeDocumentMoniker": "habitplanforum.client\\src\\api\\posts.js",
+              "ToolTip": "C:\\github\\Habbit-Plan-Forum\\habitplanforum.client\\src\\api\\posts.js",
+              "RelativeToolTip": "habitplanforum.client\\src\\api\\posts.js",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAACoAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-12-14T22:47:54.083Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "LoginPage.jsx",
+              "DocumentMoniker": "C:\\github\\Habbit-Plan-Forum\\habitplanforum.client\\src\\pages\\LoginPage.jsx",
+              "RelativeDocumentMoniker": "habitplanforum.client\\src\\pages\\LoginPage.jsx",
+              "ToolTip": "C:\\github\\Habbit-Plan-Forum\\habitplanforum.client\\src\\pages\\LoginPage.jsx",
+              "RelativeToolTip": "habitplanforum.client\\src\\pages\\LoginPage.jsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2024-12-14T14:50:54.789Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TopicDetailsPage.jsx",
+              "DocumentMoniker": "C:\\github\\Habbit-Plan-Forum\\habitplanforum.client\\src\\pages\\TopicDetailsPage.jsx",
+              "RelativeDocumentMoniker": "habitplanforum.client\\src\\pages\\TopicDetailsPage.jsx",
+              "ToolTip": "C:\\github\\Habbit-Plan-Forum\\habitplanforum.client\\src\\pages\\TopicDetailsPage.jsx",
+              "RelativeToolTip": "habitplanforum.client\\src\\pages\\TopicDetailsPage.jsx",
+              "ViewState": "AgIAAGMAAAAAAAAAAAAgwGsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2024-12-14T15:43:02.662Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "topics.js",
               "DocumentMoniker": "C:\\github\\Habbit-Plan-Forum\\habitplanforum.client\\src\\api\\topics.js",
               "RelativeDocumentMoniker": "habitplanforum.client\\src\\api\\topics.js",
@@ -123,98 +167,19 @@
               "RelativeToolTip": "habitplanforum.client\\src\\api\\topics.js",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-12-14T11:29:28.532Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-14T11:29:28.532Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "posts.js",
-              "DocumentMoniker": "C:\\github\\Habbit-Plan-Forum\\habitplanforum.client\\src\\api\\posts.js",
-              "RelativeDocumentMoniker": "habitplanforum.client\\src\\api\\posts.js",
-              "ToolTip": "C:\\github\\Habbit-Plan-Forum\\habitplanforum.client\\src\\api\\posts.js",
-              "RelativeToolTip": "habitplanforum.client\\src\\api\\posts.js",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-12-14T22:47:54.083Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "LoginPage.jsx",
-              "DocumentMoniker": "C:\\github\\Habbit-Plan-Forum\\habitplanforum.client\\src\\pages\\LoginPage.jsx",
-              "RelativeDocumentMoniker": "habitplanforum.client\\src\\pages\\LoginPage.jsx",
-              "ToolTip": "C:\\github\\Habbit-Plan-Forum\\habitplanforum.client\\src\\pages\\LoginPage.jsx",
-              "RelativeToolTip": "habitplanforum.client\\src\\pages\\LoginPage.jsx",
-              "ViewState": "AgIAABgAAAAAAAAAAAAAACMAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
-              "WhenOpened": "2024-12-14T14:50:54.789Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "TopicDetailsPage.jsx",
-              "DocumentMoniker": "C:\\github\\Habbit-Plan-Forum\\habitplanforum.client\\src\\pages\\TopicDetailsPage.jsx",
-              "RelativeDocumentMoniker": "habitplanforum.client\\src\\pages\\TopicDetailsPage.jsx",
-              "ToolTip": "C:\\github\\Habbit-Plan-Forum\\habitplanforum.client\\src\\pages\\TopicDetailsPage.jsx",
-              "RelativeToolTip": "habitplanforum.client\\src\\pages\\TopicDetailsPage.jsx",
-              "ViewState": "AgIAAFsAAAAAAAAAAAAgwGcAAAA5AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
-              "WhenOpened": "2024-12-14T15:43:02.662Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\github\\Habbit-Plan-Forum\\HabitPlanForum.Server\\appsettings.json",
-              "RelativeDocumentMoniker": "HabitPlanForum.Server\\appsettings.json",
-              "ToolTip": "C:\\github\\Habbit-Plan-Forum\\HabitPlanForum.Server\\appsettings.json",
-              "RelativeToolTip": "HabitPlanForum.Server\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAACLAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-12-15T14:37:43.982Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "users.js",
-              "DocumentMoniker": "C:\\github\\Habbit-Plan-Forum\\habitplanforum.client\\src\\api\\users.js",
-              "RelativeDocumentMoniker": "habitplanforum.client\\src\\api\\users.js",
-              "ToolTip": "C:\\github\\Habbit-Plan-Forum\\habitplanforum.client\\src\\api\\users.js",
-              "RelativeToolTip": "habitplanforum.client\\src\\api\\users.js",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-12-15T13:33:34.542Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "ForumRoles.cs",
-              "DocumentMoniker": "C:\\github\\Habbit-Plan-Forum\\HabitPlanForum.Server\\Auth\\Model\\ForumRoles.cs",
-              "RelativeDocumentMoniker": "HabitPlanForum.Server\\Auth\\Model\\ForumRoles.cs",
-              "ToolTip": "C:\\github\\Habbit-Plan-Forum\\HabitPlanForum.Server\\Auth\\Model\\ForumRoles.cs",
-              "RelativeToolTip": "HabitPlanForum.Server\\Auth\\Model\\ForumRoles.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 8,
+              "Title": "TopicsController.cs",
+              "DocumentMoniker": "C:\\github\\Habbit-Plan-Forum\\HabitPlanForum.Server\\Controllers\\TopicsController.cs",
+              "RelativeDocumentMoniker": "HabitPlanForum.Server\\Controllers\\TopicsController.cs",
+              "ToolTip": "C:\\github\\Habbit-Plan-Forum\\HabitPlanForum.Server\\Controllers\\TopicsController.cs",
+              "RelativeToolTip": "HabitPlanForum.Server\\Controllers\\TopicsController.cs",
+              "ViewState": "AgIAAGMAAAAAAAAAAAAAADgAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-15T14:06:08.505Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "AuthEndpoints.cs",
-              "DocumentMoniker": "C:\\github\\Habbit-Plan-Forum\\HabitPlanForum.Server\\Auth\\AuthEndpoints.cs",
-              "RelativeDocumentMoniker": "HabitPlanForum.Server\\Auth\\AuthEndpoints.cs",
-              "ToolTip": "C:\\github\\Habbit-Plan-Forum\\HabitPlanForum.Server\\Auth\\AuthEndpoints.cs",
-              "RelativeToolTip": "HabitPlanForum.Server\\Auth\\AuthEndpoints.cs",
-              "ViewState": "AgIAAEMAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-15T13:34:29.607Z",
+              "WhenOpened": "2024-12-15T17:43:30.085Z",
               "EditorCaption": ""
             }
           ]
