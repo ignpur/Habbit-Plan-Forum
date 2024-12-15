@@ -34,9 +34,7 @@ export const fetchPosts = async (topicId) => {
 export const createPost = async (topicId, postData) => {
     try {
         const token = getToken(); // Retrieve access token
-        const response = await API.post(
-            `/Topics/${topicId}/posts`,
-            postData,
+        const response = await API.post(`/Topics/${topicId}/posts`, postData,
             {
                 headers: {
                     Authorization: `Bearer ${token}`, // Attach token
@@ -57,6 +55,41 @@ export const fetchPostById = async (topicId, postId) => {
         return response.data;
     } catch (error) {
         console.error('Error fetching post:', error);
+        throw error;
+    }
+};
+
+
+export const updatePost = async (topicId, postId, postData) => {
+    try {
+        const token = getToken(); // Retrieve access token
+        const response = await API.put(`/Topics/${topicId}/Posts/${postId}`, postData,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Attach token
+                },
+            }
+        );
+        return response.data;
+    } catch (error) {
+        console.error('Error updating post:', error);
+        throw error;
+    }
+};
+
+export const deletePost = async (topicId, postId) => {
+    try {
+        const token = getToken(); // Retrieve access token
+        const response = await API.delete(`/Topics/${topicId}/Posts/${postId}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Attach token
+                },
+            }
+        );
+        return response.data;
+    } catch (error) {
+        console.error('Error deleting post:', error);
         throw error;
     }
 };

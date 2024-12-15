@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { fetchTopicDetails, updateTopic } from '../api/topics';
 import Header from '../components/Header';
+import { deleteTopic } from '../api/topics';
 
 const TopicUpdatePage = () => {
     const { topicId } = useParams();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [error, setError] = useState('');
+    const [setDeleteError] = useState('');
     const navigate = useNavigate();
 
     // Load existing topic details
@@ -35,6 +37,17 @@ const TopicUpdatePage = () => {
         } catch (err) {
             console.error('Failed to update topic:', err);
             setError('Failed to update the topic.');
+        }
+    };
+
+    const handleDeleteTopic = async () => {
+        try {
+            await deleteTopic(topicId);
+            alert('Topic successfully deleted');
+            navigate('/dashboard');
+        } catch (error) {
+            console.error('Failed to delete topic', error);
+            setDeleteError(error.message);
         }
     };
 
@@ -68,6 +81,9 @@ const TopicUpdatePage = () => {
                     Cancel
                 </button>
             </form>
+            <button style={{ backgroundColor: 'red', color: 'white' }} onClick={handleDeleteTopic}>
+                Delete Topic
+            </button>
         </div>
     );
 };

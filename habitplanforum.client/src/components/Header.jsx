@@ -1,11 +1,29 @@
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
-import { logout } from '../api/auth';
-import buttonStyles from '../styles/buttonStyles'; // Import button styles
+import { logout, getUserIdFromToken } from '../api/auth';
+import { fetchUserNameById } from '../api/users';
+import buttonStyles from '../styles/buttonStyles';
 
 const Header = () => {
     const navigate = useNavigate();
     const isAuthenticated = useAuth();
+    const [userName, setUserName] = useState(null); // Store the username of the logged-in user
+
+    useEffect(() => {
+        const getUserName = async () => {
+            if (isAuthenticated) {
+                const userId = getUserIdFromToken();
+                if (userId) {
+                    console.log('UserID from token:', userId);
+                    const fetchedUserName = await fetchUserNameById(userId);
+                    setUserName(fetchedUserName);
+                }
+            }
+        };
+
+        getUserName();
+    }, [isAuthenticated]); // Run this effect only when the auth state changes
 
     const handleLogout = async () => {
         await logout();
@@ -21,10 +39,14 @@ const Header = () => {
             <nav style={styles.nav}>
                 <div style={styles.leftLinks}>
                     <Link to="/" style={styles.link}>Home</Link>
-                    <Link to="/dashboard" style={styles.link}>View all topics</Link>
+                    <Link to="/dashboard" style={styles.link}>See all topic</Link>
                 </div>
 
                 <div style={styles.rightButtons}>
+                    {isAuthenticated && userName && (
+                        <span style={styles.userName}>Welcome, {userName}</span>
+                    )}
+
                     {!isAuthenticated && (
                         <>
                             <button
@@ -89,6 +111,12 @@ const styles = {
         textDecoration: 'none',
         margin: '0 20px',
         fontSize: '18px',
+        fontWeight: 'bold'
+    },
+    userName: {
+        color: 'lightgreen',
+        fontSize: '16px',
+        marginRight: '20px',
         fontWeight: 'bold'
     }
 };

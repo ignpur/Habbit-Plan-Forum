@@ -42,7 +42,47 @@ public class CommentsController : ControllerBase
             return StatusCode(500, "An internal server error occurred."); // 500 Internal Server Error
         }
     }
+    // GET: api/topics/{topicId}/posts/{postId}/comments/{commentId}
+    [Authorize]
+    [HttpGet("{commentId}")]
+    public async Task<ActionResult<CommentDTO>> GetCommentById(int topicId, int postId, int commentId)
+    {
+        try
+        {
+            // Check if the post exists under the given topic
+            var postExists = await _context.Posts.AnyAsync(p => p.Id == postId && p.TopicId == topicId);
+            if (!postExists)
+            {
+                return BadRequest("Cannot fetch a comment under a non-existent post or topic."); // 400 Bad Request
+            }
 
+            // Find the specific comment
+            var comment = await _context.Comments
+                .FirstOrDefaultAsync(c => c.Id == commentId && c.PostId == postId);
+
+            if (comment == null)
+            {
+                return NotFound(); // 404 Not Found
+            }
+
+            // Authorization check
+            if (!HttpContext.User.IsInRole(ForumRoles.Admin) &&
+                HttpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub) != comment.UserId)
+            {
+                return Forbid(); // 403 Forbidden
+            }
+
+            // Use AutoMapper to map the Comment entity to CommentDTO
+            var commentDTO = _mapper.Map<CommentDTO>(comment);
+
+            return Ok(commentDTO); // 200 OK
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error occurred: {ex.Message}");
+            return StatusCode(500, "An internal server error occurred."); // 500 Internal Server Error
+        }
+    }
     // POST: api/topics/{topicId}/posts/{postId}/comments
     [Authorize(Roles = ForumRoles.ForumUser)]
     [HttpPost]

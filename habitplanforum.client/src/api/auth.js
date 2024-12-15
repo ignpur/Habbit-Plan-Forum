@@ -5,21 +5,20 @@ const API = axios.create({
     headers: { 'Content-Type': 'application/json' },
     withCredentials: true
 });
-const ACCESS_TOKEN_KEY = 'accessToken';
 
 let isRefreshing = false;
 let subscribers = [];
 
 export const getToken = () => {
-    return localStorage.getItem(ACCESS_TOKEN_KEY);
+    return localStorage.getItem('accessToken');
 };
 
 export const setToken = (token) => {
-    localStorage.setItem(ACCESS_TOKEN_KEY, token);
+    localStorage.setItem('accessToken', token);
 };
 
 export const clearToken = () => {
-    localStorage.removeItem(ACCESS_TOKEN_KEY);
+    localStorage.removeItem('accessToken');
 };
 
 const onTokenRefreshed = (newToken) => {
@@ -29,6 +28,39 @@ const onTokenRefreshed = (newToken) => {
 
 const addSubscriber = (callback) => {
     subscribers.push(callback);
+};
+
+export const getUserIdFromToken = () => {
+    const token = getToken();
+    if (!token) return null;
+
+    try {
+        const payload = JSON.parse(atob(token.split('.')[1])); // Decode the JWT token payload
+        return payload.name || payload.sub; // Return the username, or fallback to the "sub" (user ID) if name is not available
+    } catch (error) {
+        console.error('Failed to parse JWT token', error);
+        return null;
+    }
+};
+
+export const getUserRolesFromToken = () => {
+    const token = getToken();
+    if (!token) return [];
+
+    try {
+        const payload = JSON.parse(atob(token.split('.')[1])); // Decode the JWT payload
+
+        // Extract roles from the JWT
+        const roles = payload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
+            || payload['role']
+            || [];
+
+        // Ensure roles are always an array
+        return Array.isArray(roles) ? roles : [roles];
+    } catch (error) {
+        console.error('Failed to parse JWT token', error);
+        return [];
+    }
 };
 
 export const refreshAccessToken = async () => {
@@ -87,8 +119,6 @@ axios.interceptors.response.use(
         return Promise.reject(error);
     }
 );
-
-
 
 export const logout = async () => {
     try {

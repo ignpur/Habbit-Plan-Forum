@@ -2,8 +2,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { fetchTopicDetails, fetchPosts } from '../api/posts';
 import { fetchUserNameById } from '../api/users';
-import { deleteTopic } from '../api/topics';
 import Header from '../components/Header';
+import { getUserIdFromToken, getUserRolesFromToken } from '../api/auth';
 
 const TopicDetailsPage = () => {
     const { topicId } = useParams();
@@ -12,8 +12,10 @@ const TopicDetailsPage = () => {
     const [usernames, setUsernames] = useState({});
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [deleteError, setDeleteError] = useState('');
+   
     const navigate = useNavigate();
+    const userRoles = getUserRolesFromToken(); // Extract roles from the token
+    const isAdmin = userRoles.includes('Admin');
 
     useEffect(() => {
         const loadData = async () => {
@@ -68,19 +70,16 @@ const TopicDetailsPage = () => {
         navigate(`/topics/${topicId}/create-post`);
     };
 
-    const handleDeleteTopic = async () => {
-        try {
-            await deleteTopic(topicId);
-            alert('Topic successfully deleted');
-            navigate('/dashboard');
-        } catch (error) {
-            console.error('Failed to delete topic', error);
-            setDeleteError(error.message);
-        }
-    };
 
     const handleUpdateTopic = () => {
-        navigate(`/topics/${topicId}/update`);
+        const currentUserId = getUserIdFromToken(); // Get the logged-in user's userId
+
+
+        if (topic.userId === currentUserId || isAdmin) {
+            navigate(`/topics/${topicId}/update`);
+        } else {
+            alert('You are not allowed to update this topic.');
+        }
     };
 
     if (!isLoaded) {
@@ -96,9 +95,7 @@ const TopicDetailsPage = () => {
             <Header />
             <header>
                 <button onClick={handleBack}>Back</button>
-                <button style={{ backgroundColor: 'red', color: 'white' }} onClick={handleDeleteTopic}>
-                    Delete Topic
-                </button>
+
                 <button onClick={handleCreatePost} style={{ backgroundColor: 'lightblue', marginLeft: '10px' }}>
                     Create Post
                 </button>
@@ -107,9 +104,9 @@ const TopicDetailsPage = () => {
                 </button>
             </header>
 
-            {deleteError && <p style={{ color: 'red' }}>{deleteError}</p>}
 
             <h1>{topic.title}</h1>
+            <p>{topic.description}</p>
             <h2>Posts</h2>
             {posts.length > 0 ? (
                 <ul>
