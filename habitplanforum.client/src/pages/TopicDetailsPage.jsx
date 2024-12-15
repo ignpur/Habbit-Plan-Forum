@@ -1,14 +1,16 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { fetchTopicDetails, fetchPosts } from '../api/posts';
-import { logout } from '../api/auth';
+import { deleteTopic } from '../api/topics'; // ✅ Import delete method
+import { logout } from '../api/auth'; // ✅ Logout logic
 
 const TopicDetailsPage = () => {
-    const { topicId } = useParams();
+    const { topicId } = useParams(); // ✅ Use topicId for deletion
     const [topic, setTopic] = useState(null);
     const [posts, setPosts] = useState([]);
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [deleteError, setDeleteError] = useState(''); // ✅ Error message for delete
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -55,6 +57,17 @@ const TopicDetailsPage = () => {
         navigate(-1);
     };
 
+    const handleDeleteTopic = async () => {
+        try {
+            await deleteTopic(topicId); // ✅ Delete the topic using topicId
+            alert('Topic successfully deleted');
+            navigate('/dashboard'); // ✅ Redirect to dashboard
+        } catch (error) {
+            console.error('Failed to delete topic', error);
+            setDeleteError(error.message); // ✅ Set the error message
+        }
+    };
+
     if (!isLoaded) {
         return <p>Loading topic details...</p>;
     }
@@ -64,12 +77,22 @@ const TopicDetailsPage = () => {
             <header>
                 <button onClick={handleBack}>Back</button>
                 <button onClick={handleLogout}>Logout</button>
+
+                {/* ✅ New delete button next to back and logout */}
+                <button
+                    style={{ backgroundColor: 'red', color: 'white' }}
+                    onClick={handleDeleteTopic}
+                >
+                    Delete Topic
+                </button>
             </header>
 
             {error ? (
                 <p>{error}</p>
             ) : (
                 <>
+                    {deleteError && <p style={{ color: 'red' }}>{deleteError}</p>} {/* ✅ Display delete error */}
+
                     <h1>{topic.title}</h1>
                     <p>{topic.description}</p>
 

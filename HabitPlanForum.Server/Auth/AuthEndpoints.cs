@@ -122,7 +122,6 @@ namespace HabitPlanForum.Server.Auth
                 };
 
                 httpContext.Response.Cookies.Append("RefreshToken", newRefreshToken, cookieOptions);
-
                 await sessionService.ExtendSessionAsync(sessionIdAsGuid, newRefreshToken, expiresAt);
 
                 return Results.Ok(new SuccessfulLoginDto(accessToken));

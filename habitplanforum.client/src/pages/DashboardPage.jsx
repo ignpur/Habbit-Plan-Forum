@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { fetchTopics } from '../api/topics'; // Import from topics.js
-import { fetchUserNameById } from '../api/users'; // Import from users.js
-import { logout } from '../api/auth'; // Import logout from auth.js
-import { useNavigate, Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { fetchTopics } from '../api/topics';
+import { fetchUserNameById } from '../api/users';
+import { logout } from '../api/auth';
+import { useNavigate, Link } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 
 const DashboardPage = () => {
@@ -53,10 +53,17 @@ const DashboardPage = () => {
         navigate('/login');
     };
 
+    const handleCreateNewTopic = () => {
+        navigate('/create-topic'); // Navigate to the TopicCreatePage
+    };
+
     return (
         <div>
             <h1>All Topics</h1>
             <button onClick={handleLogout}>Logout</button>
+
+            {/* New "Create New Topic" button */}
+            <button onClick={handleCreateNewTopic}>Create New Topic</button> 
             <ul>
                 {topics.map(topic => (
                     <li key={topic.id}>

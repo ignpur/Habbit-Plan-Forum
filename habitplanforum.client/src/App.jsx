@@ -4,6 +4,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
 import TopicDetailsPage from './pages/TopicDetailsPage';
+import TopicCreatePage from './pages/TopicCreatePage';
 import './App.css';
 
 
@@ -16,6 +17,7 @@ function App() {
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/dashboard" element={<DashboardPage />} />
                 <Route path="/topics/:topicId" element={<TopicDetailsPage />} />
+                <Route path="/create-topic" element={<TopicCreatePage />} /> 
             </Routes>
         </Router>
     );
