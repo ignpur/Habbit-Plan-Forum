@@ -127,8 +127,7 @@
               "ViewState": "AgIAADkAAAAAAAAAAAAUwEQAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
               "WhenOpened": "2024-12-15T19:20:19.195Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -192,8 +191,7 @@
               "RelativeToolTip": "HabitPlanForum.Server\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAADRAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-12-16T13:03:41.123Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-16T13:03:41.123Z"
             },
             {
               "$type": "Document",

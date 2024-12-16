@@ -24,10 +24,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.8.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\habitplanforum.client\habitplanforum.client.esproj">
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-  </ItemGroup>
+<!-- <ItemGroup>
+  <ProjectReference Include="..\habitplanforum.client\habitplanforum.client.esproj">
+    <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+  </ProjectReference>
+</ItemGroup> -->
 
 </Project>
