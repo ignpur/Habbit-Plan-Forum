@@ -139,31 +139,39 @@ namespace HabitPlanForum.Server.Auth
             });
 
             //Logout
-            app.MapPost("api/logout", async (UserManager<ForumUser> userManager, JwtTokenService jwtTokenService, SessionService sessionService, HttpContext httpContext) =>
+            app.MapPost("api/logout", async (HttpContext httpContext, SessionService sessionService, JwtTokenService jwtTokenService) =>
             {
+                // Attempt to retrieve the RefreshToken
                 if (!httpContext.Request.Cookies.TryGetValue("RefreshToken", out var refreshToken))
                 {
-                    return Results.UnprocessableEntity();
+                    return Results.Ok("Already logged out."); // Gracefully handle missing token
                 }
 
+                // Parse the RefreshToken
                 if (!jwtTokenService.TryParseRefreshToken(refreshToken, out var claims))
                 {
-                    return Results.UnprocessableEntity();
+                    return Results.Ok("Invalid token, already logged out.");
                 }
 
                 var sessionId = claims.FindFirstValue("SessionId");
-                if (string.IsNullOrWhiteSpace(sessionId))
+                if (!string.IsNullOrWhiteSpace(sessionId))
                 {
-                    return Results.UnprocessableEntity();
+                    var sessionIdAsGuid = Guid.Parse(sessionId);
+                    await sessionService.InvalidateSessionAsync(sessionIdAsGuid);
                 }
 
-                var sessionIdAsGuid = Guid.Parse(sessionId);
+                // Delete the RefreshToken cookie
+                httpContext.Response.Cookies.Delete("RefreshToken", new CookieOptions
+                {
+                    HttpOnly = true,
+                    SameSite = SameSiteMode.Lax,
+                    Secure = true,
+                    Path = "/"
+                });
 
-                await sessionService.InvalidateSessionAsync(sessionIdAsGuid);
-                httpContext.Response.Cookies.Delete("RefreshToken");
-
-                return Results.Ok();
+                return Results.Ok("Logout successful");
             });
+
         }
 
         public record RegisterUserDto(string UserName, string Email, string Password);
