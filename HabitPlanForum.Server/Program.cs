@@ -66,7 +66,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", builder =>
     {
-        builder.WithOrigins("https://localhost:5173") // Replace this with your frontend's URL
+        builder.WithOrigins("https://sea-lion-app-6urz2.ondigitalocean.app/") // Replace this with your frontend's URL
                .AllowAnyMethod()
                .AllowAnyHeader()
                .AllowCredentials(); // This allows credentials like cookies, headers, etc.
