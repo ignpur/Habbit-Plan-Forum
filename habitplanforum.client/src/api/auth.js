@@ -124,13 +124,8 @@ export const logout = async () => {
     try {
         await API.post('/logout', {}, { withCredentials: true });
         localStorage.clear();
+        localStorage.removeItem("accessToken");
         sessionStorage.clear();
-        document.cookie.split(";").forEach((c) => {
-            document.cookie = c
-                .replace(/^ +/, "")
-                .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-        });
-        window.location.href = '/';
     } catch (error) {
         console.error('Failed to logout', error);
     }
