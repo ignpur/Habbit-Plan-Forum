@@ -1,23 +1,11 @@
 {
   "Version": 1,
-  "Hash": "LEnOkocwf64Cf7u4Dfd6F7FuDFq0UKsW0mlL0En2wIk=",
+  "Hash": "X3JrszAueePhfB+6SauPluwt7vc5QkeqV6FS/kLxTXo=",
   "Source": "HabitPlanForum.Server",
   "BasePath": "_content/HabitPlanForum.Server",
   "Mode": "Default",
   "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [
-    {
-      "Identity": "C:\\github\\Habbit-Plan-Forum\\habitplanforum.client\\habitplanforum.client.esproj",
-      "Version": 2,
-      "Source": "habitplanforum.client",
-      "GetPublishAssetsTargets": "GetCurrentProjectPublishStaticWebAssetItems",
-      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
-      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained",
-      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
-      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
-      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained"
-    }
-  ],
+  "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [],
   "Assets": []
 }
