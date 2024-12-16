@@ -66,7 +66,7 @@ namespace HabitPlanForum.Server.Auth
                     HttpOnly = true,
                     SameSite = SameSiteMode.Lax,
                     Expires = expiresAt,
-                    Secure = false ///WHILE IN PRODUCTION IT HAS TO BE TRUE, after production is should be false
+                    Secure = true
                 };
 
                 httpContext.Response.Cookies.Append("RefreshToken", refreshToken, cookieOptions);
