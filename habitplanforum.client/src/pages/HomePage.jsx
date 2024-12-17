@@ -9,7 +9,7 @@ const HomePage = () => {
     return (
         <div>
             <Header />
-            <h1>Welcome to Saulius Smyrda Forum</h1>
+            <h1>Welcome to Habit Plan Sharing Forum</h1>
             <p>This is the homepage where users can login and register</p>
 
             {isAuthenticated ? (
