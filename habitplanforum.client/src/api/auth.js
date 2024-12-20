@@ -131,7 +131,7 @@ export const logout = async () => {
             const [name] = cookie.split("=");
             document.cookie = `${name}=;expires=${new Date(0).toUTCString()};path=/;`;
         });
-
+        window.location.href = '/';
     } catch (error) {
         console.error('Failed to logout:', error);
     }
